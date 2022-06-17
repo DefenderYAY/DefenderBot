@@ -6,7 +6,7 @@ from discord.ui import Button
 from discord.ext import commands
 intents = discord.Intents.all()
 
-bot = commands.Bot(command_prefix = "-", help_command = None)
+bot = commands.Bot(command_prefix = "-", help_command = None, intents = discord.Intents.all())
 bot1 = discord.Client(intents = intents)
 
 #Commands
