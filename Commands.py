@@ -2,6 +2,7 @@
 from tkinter.ttk import Style
 import discord
 import random
+from discord.ui import Button
 from discord.ext import commands
 intents = discord.Intents.all()
 
@@ -136,6 +137,7 @@ async def ghost(ctx):
 @bot.command()
 async def city(ctx):
     await ctx.send("city is sus AMOGUS https://c.tenor.com/o9bbZuiIt0AAAAAd/amogus.gif")
+    print("yes")
 
 #Events
 
@@ -190,6 +192,6 @@ async def on_raw_reaction_remove(payload):
     if emoji == "amogus" and message_id == 985404494642831360:
         role = discord.utils.get(guild.roles, name = "Valorant")
         await member.remove_roles(role)
-
+        
 from config import TOKEN       
 bot.run(TOKEN)
