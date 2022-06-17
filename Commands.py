@@ -1,8 +1,9 @@
 #importing
+from code import interact
 from tkinter.ttk import Style
 import discord
 import random
-from discord.ui import Button
+from discord.ui import Button, View
 from discord.ext import commands
 intents = discord.Intents.all()
 
@@ -45,6 +46,20 @@ async def rps(ctx, hand):
             await ctx.send("yay you won '*how much longer do i have to do this again?*'")
         else:
             await ctx.send("SUCK IT LOSER I WON")
+
+class rockButtonClass(View):
+    @discord.ui.button(label = "Rock", emoji="<:787134728737390623:987378008035835984>", custom_id = "rock")
+    async def button_callback(self, button, interaction):
+        button.label = "You have chosen your move!"
+        button.disabled = True
+        await interaction.response.edit_message(view = self)
+@bot.command()
+async def newrps(ctx):
+    # button = Button(label = "Rock", emoji="<:787134728737390623:987378008035835984>", custom_id = "rock")
+    # button2 = Button(label = "Paper", emoji="📜", custom_id = "paper")
+    # button3 = Button(label = "Scissors", emoji = "✂", custom_id = "scissors")
+    view = rockButtonClass()
+    await ctx.send("Choose your move", view = view)
 
 #Help Embed
 @bot.command(aliases = ["about", "what"])
@@ -107,6 +122,7 @@ async def serverIp(ctx):
     ipEmbed.add_field(name = "1.19 Vanilla SMP", value = "**IP: OMGLETSGOOOOO.aternos.me**, This is a vanilla 1.19 server! **Cracked is not enabled on this server**", inline = False)
     ipEmbed.set_footer(text = "Ask us if you want any more smps!")
     await ctx.send(embed = ipEmbed)
+
 #custom commands
 
 @bot.command()
@@ -192,6 +208,7 @@ async def on_raw_reaction_remove(payload):
     if emoji == "amogus" and message_id == 985404494642831360:
         role = discord.utils.get(guild.roles, name = "Valorant")
         await member.remove_roles(role)
-        
+
+
 from config import TOKEN       
 bot.run(TOKEN)
