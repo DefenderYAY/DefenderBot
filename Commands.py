@@ -237,7 +237,7 @@ async def elpepe(ctx):
 async def march(ctx):
     await ctx.respond("> 'no' - Marchly , 2022")
 
-@bot.slash_command(description = "City's Custom Command")
+@bot.slash_command(description = "Ghost's Custom Command")
 async def ghost(ctx):
     await ctx.respond("GHOST IS A LITTLE SUSSY BAKA AMOGUS UWU")
     await ctx.send("https://tenor.com/view/oops-haha-epic-fail-escalator-sliding-gif-15280329")
