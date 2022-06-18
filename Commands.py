@@ -216,28 +216,28 @@ async def city(ctx):
     await ctx.respond(f"city is sus AMOGUS")
     await ctx.send("https://c.tenor.com/o9bbZuiIt0AAAAAd/amogus.gif")
 
-@bot.slash_command()
+@bot.slash_command(description = "F O O T")
 async def foot(ctx):
     await ctx.respond("https://i.kym-cdn.com/photos/images/original/001/526/968/043.jpg")
 
-@bot.slash_command()
+@bot.slash_command(description = "Shiv's Custom Command")
 async def shiv(ctx):
     await ctx.respond("https://tenor.com/view/kidnapping-roblox-roblox-kidnapping-lol-uwu-gif-24871536")
 
-@bot.slash_command()
+@bot.slash_command(description = "Stellar's Custom Command")
 async def stellar(ctx):
     await ctx.respond("https://tenor.com/view/among-us-gif-24283650")
     await ctx.send("https://tenor.com/view/sushichaeng-among-us-among-us-meme-shocked-confused-gif-22454610")
 
-@bot.slash_command()
+@bot.slash_command(description = "El Pepe's Custom Command")
 async def elpepe(ctx):
     await ctx.respond("https://tenor.com/view/stare-staring-cat-gif-20275090")
 
-@bot.slash_command()
+@bot.slash_command(description = "Marchly's Custom Command")
 async def march(ctx):
     await ctx.respond("> 'no' - Marchly , 2022")
 
-@bot.slash_command()
+@bot.slash_command(description = "City's Custom Command")
 async def ghost(ctx):
     await ctx.respond("GHOST IS A LITTLE SUSSY BAKA AMOGUS UWU")
     await ctx.send("https://tenor.com/view/oops-haha-epic-fail-escalator-sliding-gif-15280329")
