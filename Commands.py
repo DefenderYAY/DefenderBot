@@ -1,10 +1,13 @@
 #importing
 from code import interact
+from profile import run
+from ssl import Options
 from tkinter.ttk import Style
 import discord
 import random
 from discord.ui import Button, View
 from discord.ext import commands
+from discord.commands import Option
 intents = discord.Intents.all()
 intents.message_content = True
 
@@ -170,7 +173,10 @@ async def on_message(msg):
 @bot.event
 async def on_ready():
     activity  = discord.Game(name="!help")
-    await bot.change_presence(activity=discord.Game(name="amogus | listening to -help"))
+    await bot.change_presence(activity=discord.Game(name="listening to -help | amogus"))
+    await bot.change_presence(activity=discord.Game(name="minecraft with Defender"))
+    await bot.change_presence(activity=discord.Game(name="among us with citybot"))
+    await bot.change_presence(activity=discord.Game(name="????"))
     print("Bot is ready!")
 
 @bot1.event
@@ -241,6 +247,66 @@ async def march(ctx):
 async def ghost(ctx):
     await ctx.respond("GHOST IS A LITTLE SUSSY BAKA AMOGUS UWU")
     await ctx.send("https://tenor.com/view/oops-haha-epic-fail-escalator-sliding-gif-15280329")
+
+@bot.slash_command(description = "ACE's Custom Command")
+async def ace(ctx):
+    await ctx.respond("bob, you truly are a god")
+    await ctx.send("https://cdn.discordapp.com/attachments/979007072060469318/987741354618662953/IMG_0650.png")
+
+#RPS
+
+@bot.slash_command(description = "RPS")
+async def rps(ctx, options : Option(str,"choose your option", choices = ["rock", "paper", "scissors"])):
+    hands = ["rock", "paper", "scissors"]
+    opt = options or None
+    bothand = random.choice(hands)
+    await ctx.respond(bothand)
+    if opt == bothand:
+        await ctx.send("Its a Draw! Shall we play again?")
+    # elif opt == None:
+    #     await ctx.respond("bruh you chose nothing, SO I GUES I WIN HAHA")
+    elif opt == "rock":
+        if bothand == "paper":
+            await ctx.send("HAH I WON https://tenor.com/view/dancing-cat-dancing-kitten-60fps-boogie-cat-gif-24303276")
+        else:
+            await ctx.send("DUDE MY INTERNET WAS LAGGING I SHOULD HAVE WON THA- i mean yay you won haha")
+
+    elif opt == "paper":
+        if bothand == "rock":
+            await ctx.send("I FRICKING HATE YOU SO MUC- you won https://tenor.com/view/i-hate-you-anakin-star-wars-gif-10358450")
+        else:
+            await ctx.send("WHEEE I WONNN https://tenor.com/view/dance-dog-dancing-pet-boy-123asd-gif-18609627")
+
+    elif opt == "scissors":
+        if bothand == "paper":
+            await ctx.send("yay you won '*how much longer do i have to do this again?*'")
+        else:
+            await ctx.send("SUCK IT LOSER I WON")
+
+# @bot.command()
+# async def rps(ctx, hand):
+#     hands = ["rock", "paper", "scissors"]
+#     botHand = random.choice(hands)
+#     await ctx.send(botHand)
+#     if hand == botHand:
+#         await ctx.send("Its a Draw! Shall we play again?")
+#     elif hand == "rock":
+#         if botHand == "paper":
+#             await ctx.send("HAH I WON https://tenor.com/view/dancing-cat-dancing-kitten-60fps-boogie-cat-gif-24303276")
+#         else:
+#             await ctx.send("DUDE MY INTERNET WAS LAGGING I SHOULD HAVE WON THA- i mean yay you won haha")
+
+#     elif hand == "paper":
+#         if botHand == "rock":
+#             await ctx.send("I FRICKING HATE YOU SO MUC- you won https://tenor.com/view/i-hate-you-anakin-star-wars-gif-10358450")
+#         else:
+#             await ctx.send("WHEEE I WONNN https://tenor.com/view/dance-dog-dancing-pet-boy-123asd-gif-18609627")
+
+#     elif hand == "scissors":
+#         if botHand == "paper":
+#             await ctx.send("yay you won '*how much longer do i have to do this again?*'")
+#         else:
+#             await ctx.send("SUCK IT LOSER I WON")
 
 from config import TOKEN       
 bot.run(TOKEN)
