@@ -6,6 +6,7 @@ import random
 from discord.ui import Button, View
 from discord.ext import commands
 intents = discord.Intents.all()
+intents.message_content = True
 
 bot = commands.Bot(command_prefix = "-", help_command = None, intents = discord.Intents.all())
 bot1 = discord.Client(intents = intents)
@@ -77,13 +78,13 @@ async def help(ctx):
 async def custom(ctx):
     customEmbed = discord.Embed(title = "Commands", description = "These are the commands I know so far :D", color = discord.Color.blurple())
     customEmbed.set_thumbnail(url="https://i.imgflip.com/60v6pm.jpg") 
-    customEmbed.add_field(name = "City's Custom Command [-city]", value = "This is a custom command for <@701981194971119690>! Only <@701981194971119690 can use it!", inline = False)
-    customEmbed.add_field(name = "Marchly's Custom Command [-march]", value = "This is a custom command for <@706876255064293416>! Only <@706876255064293416> can use it!", inline = False)
-    customEmbed.add_field(name = "Ghost's Custom Command [-ghost]", value = "This is a custom command for <@606870679543087154>! Only <@606870679543087154> can use it!", inline = False)
-    customEmbed.add_field(name = "Shiv's Custom Command [-shiv]", value = "This is a custom command for <@518744853832794112>! Only <@518744853832794112> can use it!", inline = False)
-    customEmbed.add_field(name = "Stellar's Custom Command [-stellar]", value = "This is a custom command for <@820304171764416582>! Only <@820304171764416582> can use it!", inline = False)
-    customEmbed.add_field(name = "F O O T [-foot]", value = "F O O T")
-    customEmbed.add_field(name = "El Pepe's custom command [-elpepe]", value = "This is a custom command for <@7852834698300620820>! Only <@7852834698300620820> can use it")
+    customEmbed.add_field(name = "City's Custom Command [-city]", value = "This is a custom command for <@701981194971119690>! Try it to see what is does!", inline = False)
+    customEmbed.add_field(name = "Marchly's Custom Command [-march]", value = "This is a custom command for <@706876255064293416>! Try it to see what is does!", inline = False)
+    customEmbed.add_field(name = "Ghost's Custom Command [-ghost]", value = "This is a custom command for <@606870679543087154>! Try it to see what is does!", inline = False)
+    customEmbed.add_field(name = "Shiv's Custom Command [-shiv]", value = "This is a custom command for <@518744853832794112>! Try it to see what is does!", inline = False)
+    customEmbed.add_field(name = "Stellar's Custom Command [-stellar]", value = "This is a custom command for <@820304171764416582>! Try it to see what is does!!", inline = False)
+    customEmbed.add_field(name = "F O O T [-foot]", value = "F O O T", inline = False)
+    customEmbed.add_field(name = "El Pepe's custom command [-elpepe]", value = "This is a custom command for <@7852834698300620820>! Try it to see what is does! can use it", inline = False)
     await ctx.send(embed = customEmbed)
 
 #Edit command
@@ -177,7 +178,7 @@ async def on_member_join(member):
     guild = member.guild
     guildname = guild.name 
     dmchannel = await member.create_dm()
-    await dmchannel.send(f"Welcome to {guildname}! Have Fun!")
+    await dmchannel.send(f"Welcome to {guildname}! Read <#971339877004218419> and have fun!")
 
 @bot1.event 
 async def on_raw_reaction_add(payload):
@@ -209,6 +210,37 @@ async def on_raw_reaction_remove(payload):
         role = discord.utils.get(guild.roles, name = "Valorant")
         await member.remove_roles(role)
 
+#slah commands
+@bot.slash_command(description = "City's Custom Command")
+async def city(ctx):
+    await ctx.respond(f"city is sus AMOGUS")
+    await ctx.send("https://c.tenor.com/o9bbZuiIt0AAAAAd/amogus.gif")
+
+@bot.slash_command()
+async def foot(ctx):
+    await ctx.respond("https://i.kym-cdn.com/photos/images/original/001/526/968/043.jpg")
+
+@bot.slash_command()
+async def shiv(ctx):
+    await ctx.respond("https://tenor.com/view/kidnapping-roblox-roblox-kidnapping-lol-uwu-gif-24871536")
+
+@bot.slash_command()
+async def stellar(ctx):
+    await ctx.respond("https://tenor.com/view/among-us-gif-24283650")
+    await ctx.send("https://tenor.com/view/sushichaeng-among-us-among-us-meme-shocked-confused-gif-22454610")
+
+@bot.slash_command()
+async def elpepe(ctx):
+    await ctx.respond("https://tenor.com/view/stare-staring-cat-gif-20275090")
+
+@bot.slash_command()
+async def march(ctx):
+    await ctx.respond("> 'no' - Marchly , 2022")
+
+@bot.slash_command()
+async def ghost(ctx):
+    await ctx.respond("GHOST IS A LITTLE SUSSY BAKA AMOGUS UWU")
+    await ctx.send("https://tenor.com/view/oops-haha-epic-fail-escalator-sliding-gif-15280329")
 
 from config import TOKEN       
 bot.run(TOKEN)
