@@ -27,6 +27,15 @@ async def coinflip(ctx):
         await ctx.send("Tails")
 
 
+@bot.slash_command(description="Flip a coin")
+async def coinflip(ctx):
+    num = random.randint(1, 2)
+    if num == 1:
+        await ctx.respond("Heads")
+    else:
+        await ctx.respond("Tails")
+
+
 # RPS
 @bot.command()
 async def rps(ctx, hand):
@@ -381,6 +390,7 @@ async def ace(ctx):
         "https://cdn.discordapp.com/attachments/979007072060469318/987741354618662953/IMG_0650.png"
     )
 
+
 # Events
 
 
@@ -493,7 +503,7 @@ async def ace(ctx):
 # RPS
 
 
-@bot.slash_command(description="RPS")
+@bot.slash_command(description="Rock Paper Scissors")
 async def rps(
     ctx,
     options: Option(str, "choose your option", choices=["rock", "paper", "scissors"]),
@@ -538,31 +548,40 @@ async def rps(
             await ctx.send("SUCK IT LOSER I WON")
 
 
-# @bot.command()
-# async def rps(ctx, hand):
-#     hands = ["rock", "paper", "scissors"]
-#     botHand = random.choice(hands)
-#     await ctx.send(botHand)
-#     if hand == botHand:
-#         await ctx.send("Its a Draw! Shall we play again?")
-#     elif hand == "rock":
-#         if botHand == "paper":
-#             await ctx.send("HAH I WON https://tenor.com/view/dancing-cat-dancing-kitten-60fps-boogie-cat-gif-24303276")
-#         else:
-#             await ctx.send("DUDE MY INTERNET WAS LAGGING I SHOULD HAVE WON THA- i mean yay you won haha")
+@bot.slash_command()
+async def defender(ctx):
+    userid = ctx.author.id
+    if userid == 832156730502414346:
+        await ctx.respond("defender")
+    else:
+        await ctx.respond("no")
+    print(userid)
 
-#     elif hand == "paper":
-#         if botHand == "rock":
-#             await ctx.send("I FRICKING HATE YOU SO MUC- you won https://tenor.com/view/i-hate-you-anakin-star-wars-gif-10358450")
-#         else:
-#             await ctx.send("WHEEE I WONNN https://tenor.com/view/dance-dog-dancing-pet-boy-123asd-gif-18609627")
-
-#     elif hand == "scissors":
-#         if botHand == "paper":
-#             await ctx.send("yay you won '*how much longer do i have to do this again?*'")
-#         else:
-#             await ctx.send("SUCK IT LOSER I WON")
 
 from config import TOKEN
+
+
+@bot.slash_command(description = "Allows admins to change the bot's status")
+async def changestatus(ctx, status):
+    userid = ctx.author.id
+    username = ctx.author.display_name
+    if userid == 832156730502414346:
+        await bot.change_presence(
+            activity=discord.Activity(type=discord.ActivityType.playing, name=status)
+        )
+        await ctx.respond("Done, " + username)
+    elif userid == 706876255064293416:
+        await bot.change_presence(
+            activity=discord.Activity(type=discord.ActivityType.playing, name=status)
+        )
+        await ctx.respond("Done, " + username)
+    elif userid == 701981194971119690:
+        await bot.change_presence(
+            activity=discord.Activity(type=discord.ActivityType.playing, name=status)
+        )
+        await ctx.respond("Done, " + username)
+    else:
+        await ctx.respond("no")
+
 
 bot.run(TOKEN)
