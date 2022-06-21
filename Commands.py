@@ -413,13 +413,13 @@ async def on_ready():
     print("Bot is ready!")
 
 
-@bot1.event
+@bot.event
 async def on_member_join(member):
     guild = member.guild
     guildname = guild.name
     dmchannel = await member.create_dm()
     await dmchannel.send(
-        f"Welcome to {guildname}! Read <#971339877004218419> and have fun!"
+        f"Welcome to {guildname}! Read <#971339877004218419> and have fun! Also you're supposed to complete the steps to be able to see <#938455379950567444> where you can choose your version and get access to the rest of the server!"
     )
 
 
@@ -508,7 +508,7 @@ async def rps(
     ctx,
     options: Option(str, "choose your option", choices=["rock", "paper", "scissors"]),
 ):
-    hands = ["rock", "paper", "scissors"]
+    hands = ["rock", "paper", "scissors", "rock", "paper", "scissors"]
     opt = options or None
     bothand = random.choice(hands)
     await ctx.respond("I chose " + bothand)
@@ -548,14 +548,13 @@ async def rps(
             await ctx.send("SUCK IT LOSER I WON")
 
 
-@bot.slash_command()
+@bot.slash_command(description = "Defender's *SECRET* command")
 async def defender(ctx):
     userid = ctx.author.id
     if userid == 832156730502414346:
-        await ctx.respond("defender")
+        await ctx.respond("https://tenor.com/view/get-real-real-get-fornite-impossible-gif-24471055")
     else:
-        await ctx.respond("no")
-    print(userid)
+        await ctx.respond("This isn't your command. smh")
 
 
 from config import TOKEN
@@ -565,23 +564,33 @@ from config import TOKEN
 async def changestatus(ctx, status):
     userid = ctx.author.id
     username = ctx.author.display_name
+
     if userid == 832156730502414346:
         await bot.change_presence(
             activity=discord.Activity(type=discord.ActivityType.playing, name=status)
-        )
-        await ctx.respond("Done, " + username)
+        ) 
+        statusEmbed = discord.Embed(title = "Change Defender bot's status",color=discord.Color.gold())
+        statusEmbed.add_field(name = "ok",  value = "Changed DefenderBot's Status to " + status)
+        await ctx.respond(embed = statusEmbed)
     elif userid == 706876255064293416:
         await bot.change_presence(
             activity=discord.Activity(type=discord.ActivityType.playing, name=status)
         )
-        await ctx.respond("Done, " + username)
+        statusEmbed = discord.Embed(title = "Change Defender bot's status",color=discord.Color.gold())
+        statusEmbed.add_field( name = "ok",  value = "Changed DefenderBot's Status to " + status)
+        await ctx.respond(embed = statusEmbed)
     elif userid == 701981194971119690:
         await bot.change_presence(
             activity=discord.Activity(type=discord.ActivityType.playing, name=status)
         )
-        await ctx.respond("Done, " + username)
+        statusEmbed = discord.Embed(title = "Change Defender bot's status",color=discord.Color.gold())
+        statusEmbed.add_field(name = "ok",  value = "Changed DefenderBot's Status to " + status)
+        await ctx.respond(embed = statusEmbed)
     else:
-        await ctx.respond("no")
+        
+        statusEmbed = discord.Embed(title = "why" ,color=discord.Color.gold())
+        statusEmbed.add_field(name = "no " + username, value = "bruh")
+        await ctx.respond(embed = statusEmbed)
 
 
 bot.run(TOKEN)
