@@ -13,7 +13,6 @@ intents = discord.Intents.all()
 intents.message_content = True
 
 bot = commands.Bot(command_prefix="-", help_command=None, intents=discord.Intents.all())
-bot1 = discord.Client(intents=intents)
 
 # Commands
 
@@ -71,26 +70,6 @@ async def rps(ctx, hand):
             )
         else:
             await ctx.send("SUCK IT LOSER I WON")
-
-
-class rockButtonClass(View):
-    @discord.ui.button(
-        label="Rock", emoji="<:787134728737390623:987378008035835984>", custom_id="rock"
-    )
-    async def button_callback(self, button, interaction):
-        button.label = "You have chosen your move!"
-        button.disabled = True
-        await interaction.response.edit_message(view=self)
-
-
-@bot.command()
-async def newrps(ctx):
-    # button = Button(label = "Rock", emoji="<:787134728737390623:987378008035835984>", custom_id = "rock")
-    # button2 = Button(label = "Paper", emoji="📜", custom_id = "paper")
-    # button3 = Button(label = "Scissors", emoji = "✂", custom_id = "scissors")
-    view = rockButtonClass()
-    await ctx.send("Choose your move", view=view)
-
 
 # Help Embed
 @bot.command(aliases=["about", "what"])
@@ -394,7 +373,7 @@ async def ace(ctx):
 # Events
 
 
-@bot1.event
+@bot.event
 async def on_message(msg):
     username = msg.author.display_name
     if msg.author == bot.user:
@@ -422,28 +401,6 @@ async def on_member_join(member):
         f"Welcome to {guildname}! Read <#971339877004218419> and have fun! Also you're supposed to complete the steps to be able to see <#938455379950567444> where you can choose your version and get access to the rest of the server!"
     )
 
-
-# @bot1.event
-# async def on_raw_reaction_add(payload):
-#     emoji = payload.emoji.name
-#     member = payload.member
-#     message_id = payload.message_id
-#     guild_id = payload.guild_id
-#     guild = bot.get_guild(guild_id)
-#     if emoji == "874902268753903626" and message_id == 987982318541107200:
-#         role = discord.utils.get(guild.roles, name = "bot updates")
-#         await member.remove_roles(role)
-
-# async def on_raw_reaction_remove(payload):
-#     user_id = payload.user_id
-#     emoji = payload.emoji.name
-#     message_id = payload.message_id
-#     guild_id = payload.guild_id
-#     guild = bot.get_guild(guild_id)
-#     member = guild.get_member(user_id)
-#     if emoji == "874902268753903626" and message_id == 987982318541107200:
-#         role = discord.utils.get(guild.roles, name = "bot updates")
-#         await member.remove_roles(role)
 
 # slah commands
 @bot.slash_command(description="City's Custom Command")
@@ -481,7 +438,7 @@ async def elpepe(ctx):
 
 @bot.slash_command(description="Marchly's Custom Command")
 async def march(ctx):
-    await ctx.respond("> 'no' - Marchly , 2022")
+    await ctx.respond("https://c.tenor.com/5CVn4YakwxcAAAAM/cta-cat.gif")
 
 
 @bot.slash_command(description="Ghost's Custom Command")
@@ -494,9 +451,9 @@ async def ghost(ctx):
 
 @bot.slash_command(description="ACE's Custom Command")
 async def ace(ctx):
-    await ctx.respond("bob, you truly are a god")
+    await ctx.respond("Bob, you truly are a god")
     await ctx.send(
-        "https://cdn.discordapp.com/attachments/979007072060469318/987741354618662953/IMG_0650.png"
+        "https://tenor.com/view/naruto-uzumaki-uzumaki-naruto-naruto-uzumaki-baryon-mode-gif-23142269"
     )
 
 
@@ -548,11 +505,13 @@ async def rps(
             await ctx.send("SUCK IT LOSER I WON")
 
 
-@bot.slash_command(description = "Defender's *SECRET* command")
+@bot.slash_command(description="Defender's *SECRET* command")
 async def defender(ctx):
     userid = ctx.author.id
     if userid == 832156730502414346:
-        await ctx.respond("https://tenor.com/view/get-real-real-get-fornite-impossible-gif-24471055")
+        await ctx.respond(
+            "https://tenor.com/view/get-real-real-get-fornite-impossible-gif-24471055"
+        )
     else:
         await ctx.respond("This isn't your command. smh")
 
@@ -560,7 +519,7 @@ async def defender(ctx):
 from config import TOKEN
 
 
-@bot.slash_command(description = "Allows admins to change the bot's status")
+@bot.slash_command(description="Allows admins to change the bot's status")
 async def changestatus(ctx, status):
     userid = ctx.author.id
     username = ctx.author.display_name
@@ -568,29 +527,90 @@ async def changestatus(ctx, status):
     if userid == 832156730502414346:
         await bot.change_presence(
             activity=discord.Activity(type=discord.ActivityType.playing, name=status)
-        ) 
-        statusEmbed = discord.Embed(title = "Change Defender bot's status",color=discord.Color.gold())
-        statusEmbed.add_field(name = "ok",  value = "Changed DefenderBot's Status to " + status)
-        await ctx.respond(embed = statusEmbed)
+        )
+        statusEmbed = discord.Embed(
+            title="Change Defender bot's status", color=discord.Color.gold()
+        )
+        statusEmbed.add_field(
+            name="ok", value="Changed DefenderBot's Status to " + status
+        )
+        await ctx.respond(embed=statusEmbed)
     elif userid == 706876255064293416:
         await bot.change_presence(
             activity=discord.Activity(type=discord.ActivityType.playing, name=status)
         )
-        statusEmbed = discord.Embed(title = "Change Defender bot's status",color=discord.Color.gold())
-        statusEmbed.add_field( name = "ok",  value = "Changed DefenderBot's Status to " + status)
-        await ctx.respond(embed = statusEmbed)
+        statusEmbed = discord.Embed(
+            title="Change Defender bot's status", color=discord.Color.gold()
+        )
+        statusEmbed.add_field(
+            name="ok", value="Changed DefenderBot's Status to " + status
+        )
+        await ctx.respond(embed=statusEmbed)
     elif userid == 701981194971119690:
         await bot.change_presence(
             activity=discord.Activity(type=discord.ActivityType.playing, name=status)
         )
-        statusEmbed = discord.Embed(title = "Change Defender bot's status",color=discord.Color.gold())
-        statusEmbed.add_field(name = "ok",  value = "Changed DefenderBot's Status to " + status)
-        await ctx.respond(embed = statusEmbed)
+        statusEmbed = discord.Embed(
+            title="Change Defender bot's status", color=discord.Color.gold()
+        )
+        statusEmbed.add_field(
+            name="ok", value="Changed DefenderBot's Status to " + status
+        )
+        await ctx.respond(embed=statusEmbed)
+    elif userid == 939701768491782204:
+        await bot.change_presence(
+            activity=discord.Activity(type=discord.ActivityType.playing, name=status)
+        )
+        statusEmbed = discord.Embed(
+            title="Change Defender bot's status", color=discord.Color.gold()
+        )
+        statusEmbed.add_field(
+            name="ok", value="Changed DefenderBot's Status to " + status
+        )
+        await ctx.respond(embed=statusEmbed)
     else:
-        
-        statusEmbed = discord.Embed(title = "why" ,color=discord.Color.gold())
-        statusEmbed.add_field(name = "no " + username, value = "bruh")
-        await ctx.respond(embed = statusEmbed)
 
+        statusEmbed = discord.Embed(title="why", color=discord.Color.gold())
+        statusEmbed.add_field(name="no " + username, value="bruh")
+        await ctx.respond(embed=statusEmbed)
 
+@bot.slash_command(desciption = "is this a SCERET?")
+async def secret_omg(ctx):
+    await ctx.respond("omg you discovered secret, dm <@832156730502414346> to get a custom role!", ephemeral=True)
+
+# class nitroButton(Button):
+#     def __init__(self, label):
+#         super().__init__(label= label, style = discord.ButtonStyle.blurple, emoji="<:nitro:989116809892491314>", custom_id="fakeNitro")
+#     async def callback(self, button, interaction):
+#         button.label = "Claimed Nitro"
+#         button.disabled = True
+#         await interaction.response.edit_message(view=self)
+#         await interaction.followup.send("https://tenor.com/view/rickroll-roll-rick-never-gonna-give-you-up-never-gonna-gif-22954713", ephemeral = True)
+
+class MyView(View):
+
+    def __init__(self, ctx):
+        super().__init__(timeout = 180)
+        self.ctx = ctx
+
+    @discord.ui.button(label= "Click here to get FREE NITRO", style = discord.ButtonStyle.blurple, emoji="<:nitro:989116809892491314>", custom_id="fakeNitro")
+    async def button_callback(self, button, interaction):
+        button.label = "Claimed Nitro"
+        button.disabled = True
+        await interaction.response.edit_message(view=self)
+        await interaction.followup.send("https://tenor.com/view/rickroll-roll-rick-never-gonna-give-you-up-never-gonna-gif-22954713", ephemeral = True)
+    async def on_timeout(self):
+        await self.ctx.send("You took too long smh")
+    async def interaction_check(self, interaction) -> bool:
+        if interaction.user != self.ctx.author:
+            await interaction.response.send_message("This isn't your nitro!", ephemeral = True)
+            return False
+        else:
+            return True
+@bot.slash_command()
+async def nitro(ctx):
+    # button = Button(label= label, style = discord.ButtonStyle.blurple, emoji="<:nitro:989116809892491314>", custom_id="fakeNitro")
+    view = MyView(ctx)
+    nitroEmbed = discord.Embed(title = "Get Free Nitro!", description = "Click on the button to get free nitro!")
+    await ctx.respond(embed = nitroEmbed, view=view)
 bot.run(TOKEN)
