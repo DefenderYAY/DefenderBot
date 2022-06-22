@@ -71,6 +71,7 @@ async def rps(ctx, hand):
         else:
             await ctx.send("SUCK IT LOSER I WON")
 
+
 # Help Embed
 @bot.command(aliases=["about", "what"])
 async def help(ctx):
@@ -398,7 +399,7 @@ async def on_member_join(member):
     guildname = guild.name
     dmchannel = await member.create_dm()
     await dmchannel.send(
-        f"Welcome to {guildname}! Read <#971339877004218419> and have fun! Also you're supposed to complete the steps to be able to see <#938455379950567444> where you can choose your version and get access to the rest of the server!"
+        f"Welcome to {guildname}!Verify at <#988773453979070504> and Read <#971339877004218419>! Have Fun!"
     )
 
 
@@ -524,7 +525,18 @@ async def changestatus(ctx, status):
     userid = ctx.author.id
     username = ctx.author.display_name
 
-    if userid == 832156730502414346:
+    # if userid == 832156730502414346:
+    #     await bot.change_presence(
+    #         activity=discord.Activity(type=discord.ActivityType.playing, name=status)
+    #     )
+    #     statusEmbed = discord.Embed(
+    #         title="Change Defender bot's status", color=discord.Color.gold()
+    #     )
+    #     statusEmbed.add_field(
+    #         name="ok", value="Changed DefenderBot's Status to " + status
+    #     )
+    #     await ctx.respond(embed=statusEmbed)
+    if discord.default_permissions(ban_members=True):
         await bot.change_presence(
             activity=discord.Activity(type=discord.ActivityType.playing, name=status)
         )
@@ -535,28 +547,28 @@ async def changestatus(ctx, status):
             name="ok", value="Changed DefenderBot's Status to " + status
         )
         await ctx.respond(embed=statusEmbed)
-    elif userid == 706876255064293416:
-        await bot.change_presence(
-            activity=discord.Activity(type=discord.ActivityType.playing, name=status)
-        )
-        statusEmbed = discord.Embed(
-            title="Change Defender bot's status", color=discord.Color.gold()
-        )
-        statusEmbed.add_field(
-            name="ok", value="Changed DefenderBot's Status to " + status
-        )
-        await ctx.respond(embed=statusEmbed)
-    elif userid == 701981194971119690:
-        await bot.change_presence(
-            activity=discord.Activity(type=discord.ActivityType.playing, name=status)
-        )
-        statusEmbed = discord.Embed(
-            title="Change Defender bot's status", color=discord.Color.gold()
-        )
-        statusEmbed.add_field(
-            name="ok", value="Changed DefenderBot's Status to " + status
-        )
-        await ctx.respond(embed=statusEmbed)
+    # elif userid == 706876255064293416:
+    #     await bot.change_presence(
+    #         activity=discord.Activity(type=discord.ActivityType.playing, name=status)
+    #     )
+    #     statusEmbed = discord.Embed(
+    #         title="Change Defender bot's status", color=discord.Color.gold()
+    #     )
+    #     statusEmbed.add_field(
+    #         name="ok", value="Changed DefenderBot's Status to " + status
+    #     )
+    #     await ctx.respond(embed=statusEmbed)
+    # elif userid == 701981194971119690:
+    #     await bot.change_presence(
+    #         activity=discord.Activity(type=discord.ActivityType.playing, name=status)
+    #     )
+    #     statusEmbed = discord.Embed(
+    #         title="Change Defender bot's status", color=discord.Color.gold()
+    #     )
+    #     statusEmbed.add_field(
+    #         name="ok", value="Changed DefenderBot's Status to " + status
+    #     )
+    #     await ctx.respond(embed=statusEmbed)
     elif userid == 939701768491782204:
         await bot.change_presence(
             activity=discord.Activity(type=discord.ActivityType.playing, name=status)
@@ -574,9 +586,14 @@ async def changestatus(ctx, status):
         statusEmbed.add_field(name="no " + username, value="bruh")
         await ctx.respond(embed=statusEmbed)
 
-@bot.slash_command(desciption = "is this a SCERET?")
+
+@bot.slash_command(desciption="is this a SCERET?")
 async def secret_omg(ctx):
-    await ctx.respond("omg you discovered secret, dm <@832156730502414346> to get a custom role!", ephemeral=True)
+    await ctx.respond(
+        "omg you discovered secret, dm <@832156730502414346> to get a custom role!",
+        ephemeral=True,
+    )
+
 
 # class nitroButton(Button):
 #     def __init__(self, label):
@@ -587,30 +604,50 @@ async def secret_omg(ctx):
 #         await interaction.response.edit_message(view=self)
 #         await interaction.followup.send("https://tenor.com/view/rickroll-roll-rick-never-gonna-give-you-up-never-gonna-gif-22954713", ephemeral = True)
 
-class MyView(View):
 
+class MyView(View):
     def __init__(self, ctx):
-        super().__init__(timeout = 180)
+        super().__init__(timeout=180)
         self.ctx = ctx
 
-    @discord.ui.button(label= "Click here to get FREE NITRO", style = discord.ButtonStyle.blurple, emoji="<:nitro:989116809892491314>", custom_id="fakeNitro")
+    @discord.ui.button(
+        label="Click here to get FREE NITRO",
+        style=discord.ButtonStyle.blurple,
+        emoji="<:nitro:989116809892491314>",
+        custom_id="fakeNitro",
+    )
     async def button_callback(self, button, interaction):
         button.label = "Claimed Nitro"
         button.disabled = True
         await interaction.response.edit_message(view=self)
-        await interaction.followup.send("https://tenor.com/view/rickroll-roll-rick-never-gonna-give-you-up-never-gonna-gif-22954713", ephemeral = True)
+        await interaction.followup.send(
+            "https://tenor.com/view/rickroll-roll-rick-never-gonna-give-you-up-never-gonna-gif-22954713",
+            ephemeral=True,
+        )
+
     async def on_timeout(self):
-        await self.ctx.send("You took too long smh")
+        if discord.InteractionResponded == True:
+            return
+        else:
+            await self.ctx.send("You took too long smh")
+
     async def interaction_check(self, interaction) -> bool:
         if interaction.user != self.ctx.author:
-            await interaction.response.send_message("This isn't your nitro!", ephemeral = True)
+            await interaction.response.send_message(
+                "This isn't your nitro!", ephemeral=True
+            )
             return False
         else:
             return True
-@bot.slash_command()
+
+
+@bot.slash_command(description = "is this FREE NITRO?!1!?")
 async def nitro(ctx):
     # button = Button(label= label, style = discord.ButtonStyle.blurple, emoji="<:nitro:989116809892491314>", custom_id="fakeNitro")
     view = MyView(ctx)
-    nitroEmbed = discord.Embed(title = "Get Free Nitro!", description = "Click on the button to get free nitro!")
-    await ctx.respond(embed = nitroEmbed, view=view)
+    nitroEmbed = discord.Embed(
+        title="Get Free Nitro!", description="Click on the button to get free nitro!"
+    )
+    await ctx.respond(embed=nitroEmbed, view=view)
+
 bot.run(TOKEN)
