@@ -458,7 +458,7 @@ async def ace(ctx):
     )
 
 
-# RPS
+# RPS WHEEEEE
 
 
 @bot.slash_command(description="Rock Paper Scissors")
