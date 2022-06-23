@@ -2,7 +2,7 @@
 from code import interact
 from profile import run
 from ssl import Options
-from tkinter.ttk import Style
+# from tkinter.ttk import Style
 import discord
 import random
 from discord.ui import Button, View
