@@ -2,11 +2,13 @@
 from code import interact
 from profile import run
 from ssl import Options
+from click import pass_context
+
 # from tkinter.ttk import Style
-import discord
+import discord, os, asyncio
 import random
 from discord.ui import Button, View
-from discord.ext import commands
+from discord.ext import commands, tasks
 from discord.commands import Option
 
 intents = discord.Intents.all()
@@ -525,18 +527,7 @@ async def changestatus(ctx, status):
     userid = ctx.author.id
     username = ctx.author.display_name
 
-    # if userid == 832156730502414346:
-    #     await bot.change_presence(
-    #         activity=discord.Activity(type=discord.ActivityType.playing, name=status)
-    #     )
-    #     statusEmbed = discord.Embed(
-    #         title="Change Defender bot's status", color=discord.Color.gold()
-    #     )
-    #     statusEmbed.add_field(
-    #         name="ok", value="Changed DefenderBot's Status to " + status
-    #     )
-    #     await ctx.respond(embed=statusEmbed)
-    if discord.default_permissions(ban_members=True):
+    if userid == 832156730502414346:
         await bot.change_presence(
             activity=discord.Activity(type=discord.ActivityType.playing, name=status)
         )
@@ -547,29 +538,51 @@ async def changestatus(ctx, status):
             name="ok", value="Changed DefenderBot's Status to " + status
         )
         await ctx.respond(embed=statusEmbed)
-    # elif userid == 706876255064293416:
-    #     await bot.change_presence(
-    #         activity=discord.Activity(type=discord.ActivityType.playing, name=status)
-    #     )
-    #     statusEmbed = discord.Embed(
-    #         title="Change Defender bot's status", color=discord.Color.gold()
-    #     )
-    #     statusEmbed.add_field(
-    #         name="ok", value="Changed DefenderBot's Status to " + status
-    #     )
-    #     await ctx.respond(embed=statusEmbed)
-    # elif userid == 701981194971119690:
-    #     await bot.change_presence(
-    #         activity=discord.Activity(type=discord.ActivityType.playing, name=status)
-    #     )
-    #     statusEmbed = discord.Embed(
-    #         title="Change Defender bot's status", color=discord.Color.gold()
-    #     )
-    #     statusEmbed.add_field(
-    #         name="ok", value="Changed DefenderBot's Status to " + status
-    #     )
-    #     await ctx.respond(embed=statusEmbed)
+    # if discord.permissions(manage_messages=True):
+    # await bot.change_presence(
+    #     activity=discord.Activity(type=discord.ActivityType.playing, name=status)
+    # )
+    # statusEmbed = discord.Embed(
+    #     title="Change Defender bot's status", color=discord.Color.gold()
+    # )
+    # statusEmbed.add_field(
+    #     name="ok", value="Changed DefenderBot's Status to " + status
+    # )
+    # await ctx.respond(embed=statusEmbed)
+    elif userid == 706876255064293416:
+        await bot.change_presence(
+            activity=discord.Activity(type=discord.ActivityType.playing, name=status)
+        )
+        statusEmbed = discord.Embed(
+            title="Change Defender bot's status", color=discord.Color.gold()
+        )
+        statusEmbed.add_field(
+            name="ok", value="Changed DefenderBot's Status to " + status
+        )
+        await ctx.respond(embed=statusEmbed)
+    elif userid == 701981194971119690:
+        await bot.change_presence(
+            activity=discord.Activity(type=discord.ActivityType.playing, name=status)
+        )
+        statusEmbed = discord.Embed(
+            title="Change Defender bot's status", color=discord.Color.gold()
+        )
+        statusEmbed.add_field(
+            name="ok", value="Changed DefenderBot's Status to " + status
+        )
+        await ctx.respond(embed=statusEmbed)
     elif userid == 939701768491782204:
+        await bot.change_presence(
+            activity=discord.Activity(type=discord.ActivityType.playing, name=status)
+        )
+        statusEmbed = discord.Embed(
+            title="Change Defender bot's status", color=discord.Color.gold()
+        )
+        statusEmbed.add_field(
+            name="ok", value="Changed DefenderBot's Status to " + status
+        )
+        await ctx.respond(embed=statusEmbed)
+    elif userid == 606870679543087154:
         await bot.change_presence(
             activity=discord.Activity(type=discord.ActivityType.playing, name=status)
         )
@@ -641,7 +654,7 @@ class MyView(View):
             return True
 
 
-@bot.slash_command(description = "is this FREE NITRO?!1!?")
+@bot.slash_command(description="is this FREE NITRO?!1!?")
 async def nitro(ctx):
     # button = Button(label= label, style = discord.ButtonStyle.blurple, emoji="<:nitro:989116809892491314>", custom_id="fakeNitro")
     view = MyView(ctx)
@@ -649,5 +662,60 @@ async def nitro(ctx):
         title="Get Free Nitro!", description="Click on the button to get free nitro!"
     )
     await ctx.respond(embed=nitroEmbed, view=view)
+
+
+@bot.slash_command(pass_context=True)
+async def ayowtf(ctx):
+    channel = bot.get_channel(979007072060469318)
+    await channel.send("amongus")
+
+
+@bot.slash_command(description="This shows all the partners we have!")
+async def partners(ctx):
+    PartnerEmbed = discord.Embed(
+        title="Our Partners",
+        description="These are our Partners",
+        color=discord.Colour.green(),
+    )
+    PartnerEmbed.add_field(
+        name="CityBot Home",
+        value="This is City's Bot's Server! Join Here: https://discord.gg/vUNVYa4Nuy",
+        inline=False,
+    )
+    PartnerEmbed.add_field(
+        name="City's Cabaret",
+        value="This is City's Private Server! Join Here: https://discord.gg/sEztMEDFyp",
+        inline=False,
+    )
+    await ctx.respond(embed=PartnerEmbed)
+
+
+# loops
+
+
+@tasks.loop(seconds=1800)
+async def send_message():
+    await bot.wait_until_ready()
+    channel = bot.get_channel(979007072060469318)
+    print(channel)
+    partnersHourlyEmbed = discord.Embed(
+        title="Our Partners",
+        description="These are our Partners",
+        color=discord.Colour.green(),
+    )
+    partnersHourlyEmbed.add_field(
+        name="CityBot Home",
+        value="This is City's Bot's Server! Join Here: https://discord.gg/vUNVYa4Nuy",
+        inline=False,
+    )
+    partnersHourlyEmbed.add_field(
+        name="City's Cabaret",
+        value="This is City's Private Server! Join Here: https://discord.gg/sEztMEDFyp",
+        inline=False,
+    )
+    await channel.send(embed=partnersHourlyEmbed)
+
+
+send_message.start()
 
 bot.run(TOKEN)
