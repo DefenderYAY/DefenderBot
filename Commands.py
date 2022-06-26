@@ -689,11 +689,21 @@ async def partners(ctx):
     )
     await ctx.respond(embed=PartnerEmbed)
 
+@bot.slash_command(description = "Makes me say a message in a channel! This is definitely NOT a bad idea :D")
+async def say(ctx, message):
+    await ctx.respond("Done! You made me say " + message, ephemeral=True)
+    await ctx.send(message)
+
+@bot.slash_command(description = "I will send an embed with YOUR message on it!")
+async def embed(ctx, message):
+    await ctx.respond("Done! I have sent an embed which says " + message, ephemeral=True)
+    messageEmbed = discord.Embed(title = None, description = message, color = discord.Color.nitro_pink())
+    await ctx.send(embed = messageEmbed)
 
 # loops
 
 
-@tasks.loop(seconds=1800)
+@tasks.loop(seconds=3600)
 async def send_message():
     await bot.wait_until_ready()
     channel = bot.get_channel(979007072060469318)
