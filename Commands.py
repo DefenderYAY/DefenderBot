@@ -102,7 +102,7 @@ async def help(ctx):
         value="This tells you what servers we have and their ips!",
         inline=False,
     )
-    await ctx.send(embed=helpEmbed)
+    await ctx.send(embed=helpEmbed, ephemeral=True)
 
 
 @bot.slash_command(
@@ -699,6 +699,11 @@ async def embed(ctx, message):
     await ctx.respond("Done! I have sent an embed which says " + message, ephemeral=True)
     messageEmbed = discord.Embed(title = None, description = message, color = discord.Color.nitro_pink())
     await ctx.send(embed = messageEmbed)
+
+@bot.slash_command(description = "🥖")
+async def bread(ctx):
+    await ctx.respond("🥖🥖🥖🥖🥖🥖🥖🥖🥖🥖")
+
 
 # loops
 
