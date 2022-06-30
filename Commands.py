@@ -7,14 +7,17 @@ from click import pass_context
 # from tkinter.ttk import Style
 import discord, os, asyncio
 import random
-from discord.ui import Button, View
+from discord.ui import Button, View, Select
 from discord.ext import commands, tasks
 from discord.commands import Option
+from discord import Member
 
 intents = discord.Intents.all()
 intents.message_content = True
 
-bot = commands.Bot(command_prefix="-", help_command=None, intents=discord.Intents.all())
+bot = commands.Bot(
+    command_prefix=">>>", help_command=None, intents=discord.Intents.all()
+)
 
 # Commands
 
@@ -102,7 +105,7 @@ async def help(ctx):
         value="This tells you what servers we have and their ips!",
         inline=False,
     )
-    await ctx.send(embed=helpEmbed, ephemeral=True)
+    await ctx.send(embed=helpEmbed)
 
 
 @bot.slash_command(
@@ -134,7 +137,7 @@ async def help(ctx):
         value="This tells you what servers we have and their ips!",
         inline=False,
     )
-    await ctx.respond(embed=helpEmbed)
+    await ctx.respond(embed=helpEmbed, ephemeral=True)
 
 
 # Cutsom Embed
@@ -638,11 +641,11 @@ class MyView(View):
             ephemeral=True,
         )
 
-    async def on_timeout(self):
-        if discord.InteractionResponded == True:
-            return
-        else:
-            await self.ctx.send("You took too long smh")
+    # async def on_timeout(self):
+    #     if discord.InteractionResponded == True:
+    #         return
+    #     else:
+    #         await self.ctx.send("You took too long smh")
 
     async def interaction_check(self, interaction) -> bool:
         if interaction.user != self.ctx.author:
@@ -689,20 +692,48 @@ async def partners(ctx):
     )
     await ctx.respond(embed=PartnerEmbed)
 
-@bot.slash_command(description = "Makes me say a message in a channel! This is definitely NOT a bad idea :D")
+
+@bot.slash_command(
+    description="Makes me say a message in a channel! This is definitely NOT a bad idea :D"
+)
 async def say(ctx, message):
     await ctx.respond("Done! You made me say " + message, ephemeral=True)
     await ctx.send(message)
 
-@bot.slash_command(description = "I will send an embed with YOUR message on it!")
-async def embed(ctx, message):
-    await ctx.respond("Done! I have sent an embed which says " + message, ephemeral=True)
-    messageEmbed = discord.Embed(title = None, description = message, color = discord.Color.nitro_pink())
-    await ctx.send(embed = messageEmbed)
 
-@bot.slash_command(description = "🥖")
+@bot.slash_command(description="I will send an embed with YOUR message on it!")
+async def embed(ctx, message):
+    await ctx.respond(
+        "Done! I have sent an embed which says " + message, ephemeral=True
+    )
+    messageEmbed = discord.Embed(
+        title=None, description=message, color=discord.Color.nitro_pink()
+    )
+    await ctx.send(embed=messageEmbed)
+
+
+@bot.slash_command(description="🥖")
 async def bread(ctx):
     await ctx.respond("🥖🥖🥖🥖🥖🥖🥖🥖🥖🥖")
+
+
+@bot.slash_command(description="Shows you a users status", name="user_status")
+async def userstatus(ctx, member: discord.Member = None):
+    if member == None:
+        member = ctx.author
+    elif member.status == discord.Status.online:
+        embed = discord.Embed(title=f"{member.name} is online")
+    elif member.status == discord.Status.offline:
+        embed = discord.Embed(title=f"{member.name} is offline")
+    elif member.status == discord.Status.dnd:
+        embed = discord.Embed(title=f"{member.name} wants you to not not disturb them")
+    elif member.status == discord.Status.idle:
+        embed = discord.Embed(
+            title=f"{member.name} has been afk for 10 minutes or more"
+        )
+    elif member.status == discord.Status.invisible:
+        embed = discord.Embed(title=f"{member.name} is secretly online! shh")
+    await ctx.respond(embed=embed)
 
 
 # loops
@@ -732,5 +763,6 @@ async def send_message():
 
 
 send_message.start()
+
 
 bot.run(TOKEN)
