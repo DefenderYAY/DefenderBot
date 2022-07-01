@@ -1,7 +1,9 @@
 # importing
 from code import interact
+from concurrent.futures import wait
 from profile import run
 from ssl import Options
+from webbrowser import BackgroundBrowser, BaseBrowser
 from click import pass_context
 
 # from tkinter.ttk import Style
@@ -18,6 +20,7 @@ intents.message_content = True
 bot = commands.Bot(
     command_prefix=">>>", help_command=None, intents=discord.Intents.all()
 )
+
 
 # Commands
 
@@ -391,10 +394,11 @@ async def on_message(msg):
 
 @bot.event
 async def on_ready():
-    activity = discord.Game(name="!help")
     await bot.change_presence(
-        activity=discord.Activity(type=discord.ActivityType.listening, name="/help")
+        activity=discord.Activity(type=discord.ActivityType.playing, name="Rest In Peace Techno"),
+        status=discord.Status.idle,
     )
+    # await bot.change_presence(status=discord.Status.do_not_disturb)
     print("Bot is ready!")
 
 
@@ -522,9 +526,6 @@ async def defender(ctx):
         await ctx.respond("This isn't your command. smh")
 
 
-from config import TOKEN
-
-
 @bot.slash_command(description="Allows admins to change the bot's status")
 async def changestatus(ctx, status):
     userid = ctx.author.id
@@ -533,6 +534,7 @@ async def changestatus(ctx, status):
     if userid == 832156730502414346:
         await bot.change_presence(
             activity=discord.Activity(type=discord.ActivityType.playing, name=status)
+             
         )
         statusEmbed = discord.Embed(
             title="Change Defender bot's status", color=discord.Color.gold()
@@ -541,20 +543,11 @@ async def changestatus(ctx, status):
             name="ok", value="Changed DefenderBot's Status to " + status
         )
         await ctx.respond(embed=statusEmbed)
-    # if discord.permissions(manage_messages=True):
-    # await bot.change_presence(
-    #     activity=discord.Activity(type=discord.ActivityType.playing, name=status)
-    # )
-    # statusEmbed = discord.Embed(
-    #     title="Change Defender bot's status", color=discord.Color.gold()
-    # )
-    # statusEmbed.add_field(
-    #     name="ok", value="Changed DefenderBot's Status to " + status
-    # )
-    # await ctx.respond(embed=statusEmbed)
+
     elif userid == 706876255064293416:
         await bot.change_presence(
             activity=discord.Activity(type=discord.ActivityType.playing, name=status)
+            
         )
         statusEmbed = discord.Embed(
             title="Change Defender bot's status", color=discord.Color.gold()
@@ -563,9 +556,11 @@ async def changestatus(ctx, status):
             name="ok", value="Changed DefenderBot's Status to " + status
         )
         await ctx.respond(embed=statusEmbed)
+
     elif userid == 701981194971119690:
         await bot.change_presence(
             activity=discord.Activity(type=discord.ActivityType.playing, name=status)
+            
         )
         statusEmbed = discord.Embed(
             title="Change Defender bot's status", color=discord.Color.gold()
@@ -577,6 +572,7 @@ async def changestatus(ctx, status):
     elif userid == 939701768491782204:
         await bot.change_presence(
             activity=discord.Activity(type=discord.ActivityType.playing, name=status)
+            
         )
         statusEmbed = discord.Embed(
             title="Change Defender bot's status", color=discord.Color.gold()
@@ -585,9 +581,11 @@ async def changestatus(ctx, status):
             name="ok", value="Changed DefenderBot's Status to " + status
         )
         await ctx.respond(embed=statusEmbed)
+
     elif userid == 606870679543087154:
         await bot.change_presence(
             activity=discord.Activity(type=discord.ActivityType.playing, name=status)
+            
         )
         statusEmbed = discord.Embed(
             title="Change Defender bot's status", color=discord.Color.gold()
@@ -596,6 +594,7 @@ async def changestatus(ctx, status):
             name="ok", value="Changed DefenderBot's Status to " + status
         )
         await ctx.respond(embed=statusEmbed)
+
     else:
 
         statusEmbed = discord.Embed(title="why", color=discord.Color.gold())
@@ -603,7 +602,7 @@ async def changestatus(ctx, status):
         await ctx.respond(embed=statusEmbed)
 
 
-@bot.slash_command(desciption="is this a SCERET?")
+@bot.slash_command(description="is this a SCERET?")
 async def secret_omg(ctx):
     await ctx.respond(
         "omg you discovered secret, dm <@832156730502414346> to get a custom role!",
@@ -735,11 +734,19 @@ async def userstatus(ctx, member: discord.Member = None):
         embed = discord.Embed(title=f"{member.name} is secretly online! shh")
     await ctx.respond(embed=embed)
 
+@bot.slash_command(description = "A few instructions on how you can start the smp", name = "start_smp")
+async def smp(ctx):
+    smpStartEmbed = discord.Embed(title = "Instructions on how to start the smp!", color = discord.Colour.brand_green())
+    smpStartEmbed.add_field(name = "DM Defender", value = "You can always dm <@832156730502414346> and ask him to start the smp **WHEN HE IS ONLINE**", inline = False)
+    smpStartEmbed.add_field(name  = "Start it yourself!", value = "To start the SMP when the <@832156730502414346> isnt online, create a ticket and send your aternos username there! Please do **NOT** create a ticket asking us to start the smp!")
+    smpStartEmbed.set_thumbnail(url = "https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png")
+    await ctx.respond(embed = smpStartEmbed)
+
 
 # loops
 
 
-@tasks.loop(seconds=3600)
+@tasks.loop(seconds=7200)
 async def send_message():
     await bot.wait_until_ready()
     channel = bot.get_channel(979007072060469318)
@@ -759,10 +766,13 @@ async def send_message():
         value="This is City's Private Server! Join Here: https://discord.gg/sEztMEDFyp",
         inline=False,
     )
+    partnersHourlyEmbed.set_footer(text = "rip techno :((((((((")
     await channel.send(embed=partnersHourlyEmbed)
 
 
 send_message.start()
 
+
+from config import TOKEN
 
 bot.run(TOKEN)
