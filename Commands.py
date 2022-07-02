@@ -90,23 +90,28 @@ async def help(ctx):
     )
     helpEmbed.set_thumbnail(url="https://i.imgflip.com/60v6pm.jpg")
     helpEmbed.add_field(
-        name="Rock Paper Scissors [-rps]",
+        name="Rock Paper Scissors [/rps]",
         value="This command allows you to play rock paper scissors against the bot! How to use the command: `-rps value` exchange the value with **rock paper or scissors**!",
         inline=False,
     )
     helpEmbed.add_field(
-        name="Coinflip [-coinflip]",
+        name="Coinflip [/coinflip]",
         value="This command lets you flip a coin",
         inline=False,
     )
     helpEmbed.add_field(
-        name="Custom commands [-custom]",
+        name="Custom commands [/friends]",
         value="This command show the list of custom commands for friends!",
     )
     helpEmbed.add_field(
-        name="IP Help [-serverIp]",
+        name="IP Help [/serverip]",
         value="This tells you what servers we have and their ips!",
         inline=False,
+    )
+    helpEmbed.add_field(
+        name = "Change Bot Status [/changestatus]",
+        value = "Allows certain people to change the bot's status",
+        inline = False,
     )
     await ctx.send(embed=helpEmbed)
 
@@ -140,6 +145,12 @@ async def help(ctx):
         value="This tells you what servers we have and their ips!",
         inline=False,
     )
+    helpEmbed.add_field(
+    name = "Change Bot Status [/changestatus]",
+    value = "Allows certain people to change the bot's status",
+    inline = False,
+    )
+    helpEmbed.set_footer(text = "rip techno :((((((((((")
     await ctx.respond(embed=helpEmbed, ephemeral=True)
 
 
@@ -188,6 +199,7 @@ async def custom(ctx):
         value="This is a custom command for <@886078239833980958>! Try it to see what is does!",
         inline=False,
     )
+    customEmbed.set_footer(text = "rip techno :((((((((")
     await ctx.send(embed=customEmbed)
 
 
@@ -235,6 +247,7 @@ async def friends(ctx):
         value="This is a custom command for <@886078239833980958>! Try it to see what is does!",
         inline=False,
     )
+    customEmbed.set_footer(text = "rip techno :(((((((((")
     await ctx.respond(embed=customEmbed)
 
 
@@ -394,10 +407,13 @@ async def on_message(msg):
 
 @bot.event
 async def on_ready():
+    f = open("status.txt", "r")
+    last_status = f.read()
     await bot.change_presence(
-        activity=discord.Activity(type=discord.ActivityType.playing, name="Rest In Peace Techno"),
+        activity=discord.Activity(type=discord.ActivityType.playing, name=last_status),
         status=discord.Status.idle,
     )
+    f.close()
     # await bot.change_presence(status=discord.Status.do_not_disturb)
     print("Bot is ready!")
 
@@ -530,11 +546,10 @@ async def defender(ctx):
 async def changestatus(ctx, status):
     userid = ctx.author.id
     username = ctx.author.display_name
-
+    f = open("status.txt", "w")
     if userid == 832156730502414346:
         await bot.change_presence(
-            activity=discord.Activity(type=discord.ActivityType.playing, name=status)
-             
+            activity=discord.Activity(type=discord.ActivityType.playing, name=status)             
         )
         statusEmbed = discord.Embed(
             title="Change Defender bot's status", color=discord.Color.gold()
@@ -542,6 +557,7 @@ async def changestatus(ctx, status):
         statusEmbed.add_field(
             name="ok", value="Changed DefenderBot's Status to " + status
         )
+        f.write(status)
         await ctx.respond(embed=statusEmbed)
 
     elif userid == 706876255064293416:
@@ -600,7 +616,7 @@ async def changestatus(ctx, status):
         statusEmbed = discord.Embed(title="why", color=discord.Color.gold())
         statusEmbed.add_field(name="no " + username, value="bruh")
         await ctx.respond(embed=statusEmbed)
-
+    f.close()
 
 @bot.slash_command(description="is this a SCERET?")
 async def secret_omg(ctx):
