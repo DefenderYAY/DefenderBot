@@ -4,7 +4,7 @@ from concurrent.futures import wait
 from profile import run
 from ssl import Options
 from webbrowser import BackgroundBrowser, BaseBrowser
-from click import pass_context
+#from click import pass_context
 
 # from tkinter.ttk import Style
 import discord, os, asyncio
@@ -411,7 +411,7 @@ async def on_ready():
     last_status = f.read()
     await bot.change_presence(
         activity=discord.Activity(type=discord.ActivityType.playing, name=last_status),
-        status=discord.Status.idle,
+        status=discord.Status.dnd,
     )
     f.close()
     # await bot.change_presence(status=discord.Status.do_not_disturb)
@@ -562,7 +562,9 @@ async def changestatus(ctx, status):
 
     elif userid == 706876255064293416:
         await bot.change_presence(
-            activity=discord.Activity(type=discord.ActivityType.playing, name=status)
+            activity=discord.Activity(type=discord.ActivityType.playing, name=status),
+            status=discord.Status.dnd,
+
             
         )
         statusEmbed = discord.Embed(
@@ -575,7 +577,8 @@ async def changestatus(ctx, status):
 
     elif userid == 701981194971119690:
         await bot.change_presence(
-            activity=discord.Activity(type=discord.ActivityType.playing, name=status)
+            activity=discord.Activity(type=discord.ActivityType.playing, name=status),
+            status=discord.Status.dnd,
             
         )
         statusEmbed = discord.Embed(
@@ -587,7 +590,8 @@ async def changestatus(ctx, status):
         await ctx.respond(embed=statusEmbed)
     elif userid == 939701768491782204:
         await bot.change_presence(
-            activity=discord.Activity(type=discord.ActivityType.playing, name=status)
+            activity=discord.Activity(type=discord.ActivityType.playing, name=status),
+            status=discord.Status.dnd,
             
         )
         statusEmbed = discord.Embed(
@@ -600,7 +604,8 @@ async def changestatus(ctx, status):
 
     elif userid == 606870679543087154:
         await bot.change_presence(
-            activity=discord.Activity(type=discord.ActivityType.playing, name=status)
+            activity=discord.Activity(type=discord.ActivityType.playing, name=status),
+            status=discord.Status.dnd,
             
         )
         statusEmbed = discord.Embed(
