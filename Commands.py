@@ -538,6 +538,7 @@ async def defender(ctx):
         await ctx.respond(
             "https://tenor.com/view/get-real-real-get-fornite-impossible-gif-24471055"
         )
+        await ctx.send("amongus")
     else:
         await ctx.respond("This isn't your command. smh")
 
