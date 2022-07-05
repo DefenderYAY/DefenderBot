@@ -12,7 +12,7 @@ import random
 from discord.ui import Button, View, Select
 from discord.ext import commands, tasks
 from discord.commands import Option
-from discord import Member
+from discord import Member, Permissions, default_permissions
 
 intents = discord.Intents.all()
 intents.message_content = True
@@ -764,7 +764,12 @@ async def smp(ctx):
     smpStartEmbed.set_thumbnail(url = "https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png")
     await ctx.respond(embed = smpStartEmbed)
 
-
+@bot.slash_command(description = "Revive the chat", name = "revive")
+@default_permissions(ban_members = True)
+async def revivechat(ctx, reason):
+    embed = discord.Embed(title = None, description = reason, color = discord.Color.brand_red())
+    await ctx.respond("Reving chat for" + reason, ephemeral=True)
+    await ctx.send("<@&981927410876448838>", embed = embed)
 # loops
 
 
