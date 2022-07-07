@@ -787,19 +787,28 @@ async def smp(ctx):
 @bot.slash_command(description="Revive the chat", name="revive")
 @default_permissions(ban_members=True)
 @discord.ext.commands.cooldown(1, 3600, type=discord.ext.commands.BucketType.default)
-async def revivechat(ctx, reason):
+async def revivechat(ctx, reason): 
+    username = ctx.author
+    avatar = ctx.author.avatar
     embed = discord.Embed(
         title=None, description=reason, color=discord.Color.brand_red()
     )
-    await ctx.respond("Reving chat for " + reason, ephemeral=True)
+    embed.set_author(name = username, icon_url = avatar)
+    await ctx.respond("Reviving chat for " + reason, ephemeral=True)
     await ctx.send("<@&981927410876448838>", embed=embed)
 
 
 @bot.slash_command(description="Creates a channel for you!", name="create_channel")
-async def createchannel(ctx, name, category):
+@default_permissions(manage_channels = True)
+async def createchannel(ctx, name):
     await ctx.respond("Created a channel with name: " + name, ephemeral=True)
-    await ctx.guild.create_text_channel(name=name, category=category)
+    await ctx.guild.create_text_channel(name=name)
 
+@bot.slash_command(description = "Creates a voice channel for you!", name = "create_vc")
+@default_permissions(manage_channels = True)
+async def createvc(ctx, name):
+    await ctx.respond("Created a vc with name: " + name, ephemeral=True)
+    await ctx.guild.create_voice_channel(name=name)
 
 # loops
 
