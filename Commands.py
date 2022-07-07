@@ -4,7 +4,8 @@ from concurrent.futures import wait
 from profile import run
 from ssl import Options
 from webbrowser import BackgroundBrowser, BaseBrowser
-#from click import pass_context
+
+# from click import pass_context
 
 # from tkinter.ttk import Style
 import discord, os, asyncio
@@ -12,7 +13,14 @@ import random
 from discord.ui import Button, View, Select
 from discord.ext import commands, tasks
 from discord.commands import Option
-from discord import Member, Permissions, default_permissions
+from discord import (
+    CategoryChannel,
+    Member,
+    NamedTuple,
+    Permissions,
+    default_permissions,
+    TextChannel,
+)
 
 intents = discord.Intents.all()
 intents.message_content = True
@@ -109,9 +117,9 @@ async def help(ctx):
         inline=False,
     )
     helpEmbed.add_field(
-        name = "Change Bot Status [/changestatus]",
-        value = "Allows certain people to change the bot's status",
-        inline = False,
+        name="Change Bot Status [/changestatus]",
+        value="Allows certain people to change the bot's status",
+        inline=False,
     )
     await ctx.send(embed=helpEmbed)
 
@@ -146,11 +154,11 @@ async def help(ctx):
         inline=False,
     )
     helpEmbed.add_field(
-    name = "Change Bot Status [/changestatus]",
-    value = "Allows certain people to change the bot's status",
-    inline = False,
+        name="Change Bot Status [/changestatus]",
+        value="Allows certain people to change the bot's status",
+        inline=False,
     )
-    helpEmbed.set_footer(text = "rip techno :((((((((((")
+    helpEmbed.set_footer(text="rip techno :((((((((((")
     await ctx.respond(embed=helpEmbed, ephemeral=True)
 
 
@@ -194,12 +202,12 @@ async def custom(ctx):
         value="This is a custom command for <@852834698300620820>! Try it to see what is does!",
         inline=False,
     )
-    customEmbed.add_field(
-        name="ACE's custom command [-ace, /ace]",
-        value="This is a custom command for <@886078239833980958>! Try it to see what is does!",
-        inline=False,
-    )
-    customEmbed.set_footer(text = "rip techno :((((((((")
+    # customEmbed.add_field(
+    #     name="ACE's custom command [-ace, /ace]",
+    #     value="This is a custom command for <@886078239833980958>! Try it to see what is does!",
+    #     inline=False,
+    # )
+    customEmbed.set_footer(text="rip techno :((((((((")
     await ctx.send(embed=customEmbed)
 
 
@@ -242,12 +250,12 @@ async def friends(ctx):
         value="This is a custom command for <@852834698300620820>! Try it to see what is does! can use it",
         inline=False,
     )
-    customEmbed.add_field(
-        name="ACE's custom command [-ace, /ace]",
-        value="This is a custom command for <@886078239833980958>! Try it to see what is does!",
-        inline=False,
-    )
-    customEmbed.set_footer(text = "rip techno :(((((((((")
+    # customEmbed.add_field(
+    #     name="ACE's custom command [-ace, /ace]",
+    #     value="This is a custom command for <@886078239833980958>! Try it to see what is does!",
+    #     inline=False,
+    # )
+    customEmbed.set_footer(text="rip techno :(((((((((")
     await ctx.respond(embed=customEmbed)
 
 
@@ -475,12 +483,12 @@ async def ghost(ctx):
     )
 
 
-@bot.slash_command(description="ACE's Custom Command")
-async def ace(ctx):
-    await ctx.respond("Bob, you truly are a god")
-    await ctx.send(
-        "https://tenor.com/view/naruto-uzumaki-uzumaki-naruto-naruto-uzumaki-baryon-mode-gif-23142269"
-    )
+# @bot.slash_command(description="ACE's Custom Command")
+# async def ace(ctx):
+#     await ctx.respond("Bob, you truly are a god")
+#     await ctx.send(
+#         "https://tenor.com/view/naruto-uzumaki-uzumaki-naruto-naruto-uzumaki-baryon-mode-gif-23142269"
+#     )
 
 
 # RPS WHEEEEE
@@ -550,7 +558,7 @@ async def changestatus(ctx, status):
     f = open("status.txt", "w")
     if userid == 832156730502414346:
         await bot.change_presence(
-            activity=discord.Activity(type=discord.ActivityType.playing, name=status)             
+            activity=discord.Activity(type=discord.ActivityType.playing, name=status)
         )
         statusEmbed = discord.Embed(
             title="Change Defender bot's status", color=discord.Color.gold()
@@ -565,8 +573,6 @@ async def changestatus(ctx, status):
         await bot.change_presence(
             activity=discord.Activity(type=discord.ActivityType.playing, name=status),
             status=discord.Status.dnd,
-
-            
         )
         statusEmbed = discord.Embed(
             title="Change Defender bot's status", color=discord.Color.gold()
@@ -580,7 +586,6 @@ async def changestatus(ctx, status):
         await bot.change_presence(
             activity=discord.Activity(type=discord.ActivityType.playing, name=status),
             status=discord.Status.dnd,
-            
         )
         statusEmbed = discord.Embed(
             title="Change Defender bot's status", color=discord.Color.gold()
@@ -593,7 +598,6 @@ async def changestatus(ctx, status):
         await bot.change_presence(
             activity=discord.Activity(type=discord.ActivityType.playing, name=status),
             status=discord.Status.dnd,
-            
         )
         statusEmbed = discord.Embed(
             title="Change Defender bot's status", color=discord.Color.gold()
@@ -607,7 +611,6 @@ async def changestatus(ctx, status):
         await bot.change_presence(
             activity=discord.Activity(type=discord.ActivityType.playing, name=status),
             status=discord.Status.dnd,
-            
         )
         statusEmbed = discord.Embed(
             title="Change Defender bot's status", color=discord.Color.gold()
@@ -623,6 +626,7 @@ async def changestatus(ctx, status):
         statusEmbed.add_field(name="no " + username, value="bruh")
         await ctx.respond(embed=statusEmbed)
     f.close()
+
 
 @bot.slash_command(description="is this a SCERET?")
 async def secret_omg(ctx):
@@ -756,20 +760,47 @@ async def userstatus(ctx, member: discord.Member = None):
         embed = discord.Embed(title=f"{member.name} is secretly online! shh")
     await ctx.respond(embed=embed)
 
-@bot.slash_command(description = "A few instructions on how you can start the smp", name = "start_smp")
-async def smp(ctx):
-    smpStartEmbed = discord.Embed(title = "Instructions on how to start the smp!", color = discord.Colour.brand_green())
-    smpStartEmbed.add_field(name = "DM Defender", value = "You can always dm <@832156730502414346> and ask him to start the smp **WHEN HE IS ONLINE**", inline = False)
-    smpStartEmbed.add_field(name  = "Start it yourself!", value = "To start the SMP when the <@832156730502414346> isnt online, create a ticket and send your aternos username there! Please do **NOT** create a ticket asking us to start the smp!")
-    smpStartEmbed.set_thumbnail(url = "https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png")
-    await ctx.respond(embed = smpStartEmbed)
 
-@bot.slash_command(description = "Revive the chat", name = "revive")
-@default_permissions(ban_members = True)
+@bot.slash_command(
+    description="A few instructions on how you can start the smp", name="start_smp"
+)
+async def smp(ctx):
+    smpStartEmbed = discord.Embed(
+        title="Instructions on how to start the smp!",
+        color=discord.Colour.brand_green(),
+    )
+    smpStartEmbed.add_field(
+        name="DM Defender",
+        value="You can always dm <@832156730502414346> and ask him to start the smp **WHEN HE IS ONLINE**",
+        inline=False,
+    )
+    smpStartEmbed.add_field(
+        name="Start it yourself!",
+        value="To start the SMP when the <@832156730502414346> isnt online, create a ticket and send your aternos username there! Please do **NOT** create a ticket asking us to start the smp!",
+    )
+    smpStartEmbed.set_thumbnail(
+        url="https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png"
+    )
+    await ctx.respond(embed=smpStartEmbed)
+
+
+@bot.slash_command(description="Revive the chat", name="revive")
+@default_permissions(ban_members=True)
+@discord.ext.commands.cooldown(1, 3600, type=discord.ext.commands.BucketType.default)
 async def revivechat(ctx, reason):
-    embed = discord.Embed(title = None, description = reason, color = discord.Color.brand_red())
-    await ctx.respond("Reving chat for" + reason, ephemeral=True)
-    await ctx.send("<@&981927410876448838>", embed = embed)
+    embed = discord.Embed(
+        title=None, description=reason, color=discord.Color.brand_red()
+    )
+    await ctx.respond("Reving chat for " + reason, ephemeral=True)
+    await ctx.send("<@&981927410876448838>", embed=embed)
+
+
+@bot.slash_command(description="Creates a channel for you!", name="create_channel")
+async def createchannel(ctx, name, category):
+    await ctx.respond("Created a channel with name: " + name, ephemeral=True)
+    await ctx.guild.create_text_channel(name=name, category=category)
+
+
 # loops
 
 
@@ -793,7 +824,7 @@ async def send_message():
         value="This is City's Private Server! Join Here: https://discord.gg/sEztMEDFyp",
         inline=False,
     )
-    partnersHourlyEmbed.set_footer(text = "rip techno :((((((((")
+    partnersHourlyEmbed.set_footer(text="rip techno :((((((((")
     await channel.send(embed=partnersHourlyEmbed)
 
 
