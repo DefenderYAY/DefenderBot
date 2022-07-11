@@ -869,13 +869,13 @@ async def send_message():
 send_message.start()
 #Polls
 
-class PollCommand(discord.Cog):
+class PollCommand(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.numbers = ["1️⃣", "2️⃣", "3️⃣", "4️⃣ ", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟"] 
         self._last_member = None
 
-    @commands.slash_command()
+    @discord.slash_command()
     @default_permissions(manage_messages = True)
     async def poll(self, ctx, minutes : int, title, *options):
         if len(options) == 0:
@@ -893,7 +893,7 @@ class PollCommand(discord.Cog):
             for x in range(len(pollEmbed.fields)):
                 await msg.add_reaction(self.numbers[x])
 
-    @commands.slash_command()
+    @discord.slash_command()
     async def hello(self, ctx, *, member: discord.Member = None):
         member = member or ctx.author
         if self._last_member is None or self._last_member.id != member.id:
@@ -904,7 +904,6 @@ class PollCommand(discord.Cog):
 
 
 bot.add_cog(PollCommand(bot))
-bot.load_extension(PollCommand)
 
 from config import TOKEN
 
