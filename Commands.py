@@ -12,7 +12,7 @@ import discord, os, asyncio
 import random
 from discord.ui import Button, View, Select
 from discord.ext import commands, tasks
-from discord.commands import Option
+from discord.commands import Option, slash_command
 from discord import (
     CategoryChannel,
     Member,
@@ -866,9 +866,45 @@ async def send_message():
     partnersHourlyEmbed.set_footer(text="rip techno :((((((((")
     await channel.send(embed=partnersHourlyEmbed)
 
-
 send_message.start()
+#Polls
 
+class PollCommand(discord.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+        self.numbers = ["1️⃣", "2️⃣", "3️⃣", "4️⃣ ", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟"] 
+        self._last_member = None
+
+    @commands.slash_command()
+    @default_permissions(manage_messages = True)
+    async def poll(self, ctx, minutes : int, title, *options):
+        if len(options) == 0:
+            pollEmbed = discord.Embed(title = title, description = f"There are **{minutes}** minutes remaining!")
+            await ctx.respond(f"Done! Created a poll with title: {title}!", ephemeral=True)
+            msg = await ctx.send(embed = pollEmbed)
+            await msg.add_reaction("👍")
+            await msg.add_reaction("👎")
+        else:
+            pollEmbed = discord.Embed(title = title, description = f"There are **{minutes}** minutes remaining!")
+            for number, option in enumerate(options):
+               pollEmbed.add_field(name = f"{self.numbers[number]}", value = f"**{option}**", inline = False)
+            await ctx.respond(f"Done! Created a poll with title: {title}, and your options!", ephemeral=True)
+            msg = await ctx.send(embed = pollEmbed)
+            for x in range(len(pollEmbed.fields)):
+                await msg.add_reaction(self.numbers[x])
+
+    @commands.slash_command()
+    async def hello(self, ctx, *, member: discord.Member = None):
+        member = member or ctx.author
+        if self._last_member is None or self._last_member.id != member.id:
+            await ctx.send(f'Hello {member.name}~')
+        else:
+            await ctx.send(f'Hello {member.name}... This feels familiar.')
+        self._last_member = member
+
+
+bot.add_cog(PollCommand(bot))
+bot.load_extension(PollCommand)
 
 from config import TOKEN
 
