@@ -428,12 +428,40 @@ async def on_ready():
 
 @bot.event
 async def on_member_join(member):
+    await bot.wait_until_ready()
     guild = member.guild
     guildname = guild.name
+    channel = bot.get_channel(971410967021895710)
+    rulesChannel = bot.get_channel(971339877004218419)
+    rolesChannel = bot.get_channel(978996415504199720)
+    partnersChannel = bot.get_channel(980821704945324062)
+    botChannel = bot.get_channel(987381424418091068)
+    ticketChannel = bot.get_channel(980039998738944080)
     dmchannel = await member.create_dm()
     await dmchannel.send(
-        f"Welcome to {guildname}!Verify at <#988773453979070504> and Read <#971339877004218419>! Have Fun!"
+        f"Welcome to {guildname}! Read {rulesChannel.mention}! Have Fun!"
     )
+    # embed = discord.Embed(
+    #     title = f"Read {rulesChannel.mention}!",
+    #     description=None,
+    #     color=discord.Colour.brand_green(),
+    # )
+    embed = discord.Embed(
+        title="Welcome to Defender's Den!",
+        description=f"""**Thanks for joining!**\n\n**Please read the {rulesChannel.mention}**\n\n
+        **Go to {rolesChannel.mention} to customize your roles.**\n\n
+        **If you have any questions, feel free to direct message a staff member or open a ticket in {ticketChannel.mention}.**\n\n 
+        **See how my bot is updated in {botChannel.mention}**\n\n
+        **Check out our partners in {partnersChannel.mention}\n\n**""",
+        color=discord.Color.brand_green(),
+    )
+    embed.add_field(
+        name="PSST Check out the GitHub Page for my bot!:",
+        value="https://github.com/DefenderYAY/DefenderBot!",
+        inline=False,
+    )
+    embed.set_footer(text="Have Fun!")
+    await channel.send(f"Welcome {member.mention}", embed=embed)
 
 
 # slah commands
@@ -787,28 +815,30 @@ async def smp(ctx):
 @bot.slash_command(description="Revive the chat", name="revive")
 @default_permissions(ban_members=True)
 @discord.ext.commands.cooldown(1, 3600, type=discord.ext.commands.BucketType.default)
-async def revivechat(ctx, reason): 
+async def revivechat(ctx, reason):
     username = ctx.author
     avatar = ctx.author.avatar
     embed = discord.Embed(
         title=None, description=reason, color=discord.Color.brand_red()
     )
-    embed.set_author(name = username, icon_url = avatar)
+    embed.set_author(name=username, icon_url=avatar)
     await ctx.respond("Reviving chat for " + reason, ephemeral=True)
     await ctx.send("<@&981927410876448838>", embed=embed)
 
 
 @bot.slash_command(description="Creates a channel for you!", name="create_channel")
-@default_permissions(manage_channels = True)
+@default_permissions(manage_channels=True)
 async def createchannel(ctx, name):
     await ctx.respond("Created a channel with name: " + name, ephemeral=True)
     await ctx.guild.create_text_channel(name=name)
 
-@bot.slash_command(description = "Creates a voice channel for you!", name = "create_vc")
-@default_permissions(manage_channels = True)
+
+@bot.slash_command(description="Creates a voice channel for you!", name="create_vc")
+@default_permissions(manage_channels=True)
 async def createvc(ctx, name):
     await ctx.respond("Created a vc with name: " + name, ephemeral=True)
     await ctx.guild.create_voice_channel(name=name)
+
 
 # loops
 
