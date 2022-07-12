@@ -4,6 +4,7 @@ from concurrent.futures import wait
 from profile import run
 from ssl import Options
 from webbrowser import BackgroundBrowser, BaseBrowser
+from dotenv import load_dotenv
 
 # from click import pass_context
 
@@ -907,6 +908,6 @@ class PollCommand(commands.Cog):
 
 bot.add_cog(PollCommand(bot))
 
-from config import TOKEN
-
-bot.run(TOKEN)
+# from config import TOKEN
+load_dotenv('.env')
+bot.run(os.getenv("token"))
