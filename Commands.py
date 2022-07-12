@@ -873,13 +873,15 @@ send_message.start()
 class PollCommand(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.numbers = ["1️⃣", "2️⃣", "3️⃣", "4️⃣ ", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟"] 
+        self.numbers = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟"] 
         self._last_member = None
 
     @discord.slash_command()
     @default_permissions(manage_messages = True)
-    async def poll(self, ctx, minutes : int, title, *options):
-        if len(options) == 0:
+    async def poll(self, ctx, minutes : int, title, things: str):
+        things = things.split(",")
+        print(things)
+        if len(things) == 0:
             pollEmbed = discord.Embed(title = title, description = f"There are **{minutes}** minutes remaining!")
             await ctx.respond(f"Done! Created a poll with title: {title}!", ephemeral=True)
             msg = await ctx.send(embed = pollEmbed)
@@ -887,7 +889,7 @@ class PollCommand(commands.Cog):
             await msg.add_reaction("👎")
         else:
             pollEmbed = discord.Embed(title = title, description = f"There are **{minutes}** minutes remaining!")
-            for number, option in enumerate(options):
+            for number, option in enumerate(things):
                pollEmbed.add_field(name = f"{self.numbers[number]}", value = f"**{option}**", inline = False)
             await ctx.respond(f"Done! Created a poll with title: {title}, and your options!", ephemeral=True)
             msg = await ctx.send(embed = pollEmbed)
