@@ -844,7 +844,7 @@ async def createvc(ctx, name):
 # loops
 
 
-@tasks.loop(seconds=7200)
+@tasks.loop(seconds=18000)
 async def send_message():
     await bot.wait_until_ready()
     channel = bot.get_channel(979007072060469318)
