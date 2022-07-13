@@ -100,7 +100,7 @@ async def help(ctx):
     helpEmbed.set_thumbnail(url="https://i.imgflip.com/60v6pm.jpg")
     helpEmbed.add_field(
         name="Rock Paper Scissors [/rps]",
-        value="This command allows you to play rock paper scissors against the bot! How to use the command: `-rps value` exchange the value with **rock paper or scissors**!",
+        value="This command allows you to play rock paper scissors against the bot! How to use the command: `/rps option` exchange the option with **rock paper or scissors**!",
         inline=False,
     )
     helpEmbed.add_field(
@@ -609,6 +609,7 @@ async def changestatus(ctx, status):
         statusEmbed.add_field(
             name="ok", value="Changed DefenderBot's Status to " + status
         )
+        f.write(status)
         await ctx.respond(embed=statusEmbed)
 
     elif userid == 701981194971119690:
@@ -622,6 +623,7 @@ async def changestatus(ctx, status):
         statusEmbed.add_field(
             name="ok", value="Changed DefenderBot's Status to " + status
         )
+        f.write(status)
         await ctx.respond(embed=statusEmbed)
     elif userid == 939701768491782204:
         await bot.change_presence(
@@ -634,6 +636,7 @@ async def changestatus(ctx, status):
         statusEmbed.add_field(
             name="ok", value="Changed DefenderBot's Status to " + status
         )
+        f.write(status)
         await ctx.respond(embed=statusEmbed)
 
     elif userid == 606870679543087154:
@@ -647,6 +650,7 @@ async def changestatus(ctx, status):
         statusEmbed.add_field(
             name="ok", value="Changed DefenderBot's Status to " + status
         )
+        f.write(status)
         await ctx.respond(embed=statusEmbed)
 
     else:
