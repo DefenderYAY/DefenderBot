@@ -136,21 +136,21 @@ async def help(ctx):
     )
     helpEmbed.set_thumbnail(url="https://i.imgflip.com/60v6pm.jpg")
     helpEmbed.add_field(
-        name="Rock Paper Scissors [-rps]",
+        name="Rock Paper Scissors [/rps]",
         value="This command allows you to play rock paper scissors against the bot! How to use the command: `-rps value` exchange the value with **rock paper or scissors**!",
         inline=False,
     )
     helpEmbed.add_field(
-        name="Coinflip [-coinflip]",
+        name="Coinflip [/coinflip]",
         value="This command lets you flip a coin",
         inline=False,
     )
     helpEmbed.add_field(
-        name="Custom commands [-custom]",
+        name="Custom commands [/friends]",
         value="This command show the list of custom commands for friends!",
     )
     helpEmbed.add_field(
-        name="IP Help [-serverIp]",
+        name="IP Help [/serverip]",
         value="This tells you what servers we have and their ips!",
         inline=False,
     )
