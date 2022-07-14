@@ -515,7 +515,7 @@ async def ghost(ctx):
 
 @bot.slash_command(description = "Hal's Custom Command!")
 async def hal(ctx):
-    await ctx.respond("https://images-ext-1.discordapp.net/external/ErO1HsrzAWbMSmGkMBkDPJDnFRSf0sLfYU-MMRNkYkU/https/media.tenor.com/UpTzOIi2z-sAAAPo/cat-the-cat.mp4")
+    await ctx.respond("https://tenor.com/view/cat-the-cat-he-dance-he-dance-gif-24077288")
 
 # RPS WHEEEEE
 
@@ -877,7 +877,7 @@ class PollCommand(commands.Cog):
         self.numbers = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟"] 
         self._last_member = None
 
-    @discord.slash_command()
+    @discord.slash_command(description = "Create a Poll!")
     @default_permissions(manage_messages = True)
     async def poll(self, ctx, minutes : int, title, things: str):
         things = things.split(",")
@@ -897,7 +897,7 @@ class PollCommand(commands.Cog):
             for x in range(len(pollEmbed.fields)):
                 await msg.add_reaction(self.numbers[x])
 
-    @discord.slash_command()
+    @discord.slash_command(description = "Say Hello!")
     async def hello(self, ctx, *, member: discord.Member = None):
         member = member or ctx.author
         if self._last_member is None or self._last_member.id != member.id:
