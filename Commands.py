@@ -216,38 +216,38 @@ async def custom(ctx):
 async def friends(ctx):
     customEmbed = discord.Embed(
         title="Commands",
-        description="These are the commands I know so far :D",
+        description="These are my friends' commands!",
         color=discord.Color.blurple(),
     )
     customEmbed.set_thumbnail(url="https://i.imgflip.com/60v6pm.jpg")
     customEmbed.add_field(
-        name="City's Custom Command [-city]",
+        name="City's Custom Command [/city]",
         value="This is a custom command for <@701981194971119690>! Try it to see what is does!",
         inline=False,
     )
     customEmbed.add_field(
-        name="Marchly's Custom Command [-march]",
+        name="Marchly's Custom Command [/march]",
         value="This is a custom command for <@706876255064293416>! Try it to see what is does!",
         inline=False,
     )
     customEmbed.add_field(
-        name="Ghost's Custom Command [-ghost]",
+        name="Ghost's Custom Command [/ghost]",
         value="This is a custom command for <@606870679543087154>! Try it to see what is does!",
         inline=False,
     )
     customEmbed.add_field(
-        name="Shiv's Custom Command [-shiv]",
+        name="Shiv's Custom Command [/shiv]",
         value="This is a custom command for <@518744853832794112>! Try it to see what is does!",
         inline=False,
     )
     customEmbed.add_field(
-        name="Stellar's Custom Command [-stellar]",
+        name="Stellar's Custom Command [/stellar]",
         value="This is a custom command for <@820304171764416582>! Try it to see what is does!!",
         inline=False,
     )
-    customEmbed.add_field(name="F O O T [-foot]", value="F O O T", inline=False)
+    customEmbed.add_field(name="F O O T [/foot]", value="F O O T", inline=False)
     customEmbed.add_field(
-        name="El Pepe's custom command [-elpepe]",
+        name="El Pepe's custom command [/elpepe]",
         value="This is a custom command for <@852834698300620820>! Try it to see what is does! can use it",
         inline=False,
     )
@@ -256,6 +256,7 @@ async def friends(ctx):
     #     value="This is a custom command for <@886078239833980958>! Try it to see what is does!",
     #     inline=False,
     # )
+    customEmbed.add_field(name = "Hal's Custom Command [/hal]", value = "This is a custom command for <@922536626108911667>", inline = False)
     customEmbed.set_footer(text="rip techno :(((((((((")
     await ctx.respond(embed=customEmbed)
 
@@ -393,13 +394,6 @@ async def city(ctx):
     print("yes")
 
 
-@bot.command(description="ACE's Custom Command")
-async def ace(ctx):
-    await ctx.respond("bob, you truly are a god")
-    await ctx.send(
-        "https://cdn.discordapp.com/attachments/979007072060469318/987741354618662953/IMG_0650.png"
-    )
-
 
 # Events
 
@@ -519,6 +513,9 @@ async def ghost(ctx):
 #         "https://tenor.com/view/naruto-uzumaki-uzumaki-naruto-naruto-uzumaki-baryon-mode-gif-23142269"
 #     )
 
+@bot.slash_command(description = "Hal's Custom Command!")
+async def hal(ctx):
+    await ctx.respond("https://images-ext-1.discordapp.net/external/ErO1HsrzAWbMSmGkMBkDPJDnFRSf0sLfYU-MMRNkYkU/https/media.tenor.com/UpTzOIi2z-sAAAPo/cat-the-cat.mp4")
 
 # RPS WHEEEEE
 
