@@ -3,6 +3,7 @@ from code import interact
 from concurrent.futures import wait
 from profile import run
 from ssl import Options
+from types import NoneType
 from webbrowser import BackgroundBrowser, BaseBrowser
 from dotenv import load_dotenv
 
@@ -256,7 +257,11 @@ async def friends(ctx):
     #     value="This is a custom command for <@886078239833980958>! Try it to see what is does!",
     #     inline=False,
     # )
-    customEmbed.add_field(name = "Hal's Custom Command [/hal]", value = "This is a custom command for <@922536626108911667>", inline = False)
+    customEmbed.add_field(
+        name="Hal's Custom Command [/hal]",
+        value="This is a custom command for <@922536626108911667>",
+        inline=False,
+    )
     customEmbed.set_footer(text="rip techno :(((((((((")
     await ctx.respond(embed=customEmbed)
 
@@ -394,7 +399,6 @@ async def city(ctx):
     print("yes")
 
 
-
 # Events
 
 
@@ -411,12 +415,12 @@ async def on_message(msg):
 @bot.event
 async def on_ready():
     f = open("status.txt", "r")
-    last_status = f.read()
     await bot.change_presence(
-        activity=discord.Activity(type=discord.ActivityType.playing, name=last_status),
+        activity=discord.Activity(
+            type=discord.ActivityType.playing, name="Haters be hatin'"
+        ),
         status=discord.Status.dnd,
     )
-    f.close()
     # await bot.change_presence(status=discord.Status.do_not_disturb)
     print("Bot is ready!")
 
@@ -513,9 +517,13 @@ async def ghost(ctx):
 #         "https://tenor.com/view/naruto-uzumaki-uzumaki-naruto-naruto-uzumaki-baryon-mode-gif-23142269"
 #     )
 
-@bot.slash_command(description = "Hal's Custom Command!")
+
+@bot.slash_command(description="Hal's Custom Command!")
 async def hal(ctx):
-    await ctx.respond("https://tenor.com/view/cat-the-cat-he-dance-he-dance-gif-24077288")
+    await ctx.respond(
+        "https://tenor.com/view/cat-the-cat-he-dance-he-dance-gif-24077288"
+    )
+
 
 # RPS WHEEEEE
 
@@ -868,49 +876,126 @@ async def send_message():
     partnersHourlyEmbed.set_footer(text="rip techno :((((((((")
     await channel.send(embed=partnersHourlyEmbed)
 
+
 send_message.start()
-#Polls
+# Polls
+
 
 class PollCommand(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.numbers = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟"] 
+        self.numbers = [
+            "1️⃣",
+            "2️⃣",
+            "3️⃣",
+            "4️⃣",
+            "5️⃣",
+            "6️⃣",
+            "7️⃣",
+            "8️⃣",
+            "9️⃣",
+            "🔟",
+        ]
         self._last_member = None
 
-    @discord.slash_command(description = "Create a Poll!")
-    @default_permissions(manage_messages = True)
-    async def poll(self, ctx, minutes : int, title, things: str):
+    @discord.slash_command(description="Create a Poll!")
+    @default_permissions(manage_messages=True)
+    async def poll(self, ctx, minutes: int, title, things: str):
         things = things.split(",")
         print(things)
         if len(things) == 0:
-            pollEmbed = discord.Embed(title = title, description = f"There are **{minutes}** minutes remaining!")
-            await ctx.respond(f"Done! Created a poll with title: {title}!", ephemeral=True)
-            msg = await ctx.send(embed = pollEmbed)
+            pollEmbed = discord.Embed(
+                title=title, description=f"There are **{minutes}** minutes remaining!"
+            )
+            await ctx.respond(
+                f"Done! Created a poll with title: {title}!", ephemeral=True
+            )
+            msg = await ctx.send(embed=pollEmbed)
             await msg.add_reaction("👍")
             await msg.add_reaction("👎")
         else:
-            pollEmbed = discord.Embed(title = title, description = f"There are **{minutes}** minutes remaining!")
+            pollEmbed = discord.Embed(
+                title=title, description=f"There are **{minutes}** minutes remaining!"
+            )
             for number, option in enumerate(things):
-               pollEmbed.add_field(name = f"{self.numbers[number]}", value = f"**{option}**", inline = False)
-            await ctx.respond(f"Done! Created a poll with title: {title}, and your options!", ephemeral=True)
-            msg = await ctx.send(embed = pollEmbed)
+                pollEmbed.add_field(
+                    name=f"{self.numbers[number]}", value=f"**{option}**", inline=False
+                )
+            await ctx.respond(
+                f"Done! Created a poll with title: {title}, and your options!",
+                ephemeral=True,
+            )
+            msg = await ctx.send(embed=pollEmbed)
             for x in range(len(pollEmbed.fields)):
                 await msg.add_reaction(self.numbers[x])
+        self.poll_updater.start(ctx, minutes, title, things, msg)
 
-    @discord.slash_command(description = "Say Hello!")
+    @discord.slash_command(description="Say Hello!")
     async def hello(self, ctx, *, member: discord.Member = None):
         member = member or ctx.author
         if self._last_member is None or self._last_member.id != member.id:
-            await ctx.respond("Done!", ephemeral = True)
-            await ctx.send(f'Hello {member.name}~')
+            await ctx.respond("Done!", ephemeral=True)
+            await ctx.send(f"Hello {member.name}~")
         else:
-            await ctx.respond("Done!", ephemeral = True)
-            await ctx.send(f'Hello {member.name}... This feels familiar.')
+            await ctx.respond("Done!", ephemeral=True)
+            await ctx.send(f"Hello {member.name}... This feels familiar.")
         self._last_member = member
+
+    @tasks.loop(minutes=1)
+    async def poll_updater(self, ctx, minutes, title, things, msg):
+        counter = self.poll_updater.current_loop
+        remaining = minutes - counter
+
+        pollEmbedv2 = discord.Embed(
+            title=title, description=f"There are **{remaining}** minutes remaining!"
+        )
+        for number, option in enumerate(things):
+            pollEmbedv2.add_field(
+                name=f"{self.numbers[number]}", value=f"**{option}**", inline=False
+            )
+
+        await msg.edit(embed=pollEmbedv2)
+
+        if remaining == 0:
+            counts = []
+            msg = discord.utils.get(bot.cached_messages, id=msg.id)
+            reactions = msg.reactions
+
+            for reaction in reactions:
+                counts.append(reaction.count)
+            most_react = max(counts)
+            i = 0
+            for count in counts:
+                if count == most_react:
+                    i = i + 1
+            if i > 1:
+                await ctx.send("The Vote Has Resulted in a draw!")
+            else:
+                max_index = counts.index(most_react)
+                if len(things) == 0:
+                    await ctx.send(
+                        "Looks like the time's up! Let's See what the people think!"
+                    )
+                    winneremoji = reactions[max_index]
+                    if winneremoji.emoji == "👍":
+                        await ctx.send("That's What I Thought!")
+                    elif winneremoji.emoji == "👎":
+                        await ("Turns out People don't like this!")
+                else:
+                    winner = things[max_index]
+                    winneremoji = reactions[max_index]
+
+                    await ctx.send(
+                        "Looks like the time's up! Let's See what the people think!"
+                    )
+                    await ctx.send(
+                        f"{winneremoji.emoji} **{winner}** has won the poll!"
+                    )
+                self.poll_updater.stop()
 
 
 bot.add_cog(PollCommand(bot))
 
 # from config import TOKEN
-load_dotenv('.env')
+load_dotenv(".env")
 bot.run(os.getenv("token"))
