@@ -760,18 +760,26 @@ async def partners(ctx):
     description="Makes me say a message in a channel! This is definitely NOT a bad idea :D"
 )
 async def say(ctx, message):
+    author = ctx.author
     await ctx.respond("Done! You made me say " + message, ephemeral=True)
-    await ctx.send(message)
+    await ctx.send(
+        f""""{message}
+        -{author}
+        """
+    )
 
 
 @bot.slash_command(description="I will send an embed with YOUR message on it!")
 async def embed(ctx, message):
+    author = ctx.author
+    avatar = ctx.author.avatar
     await ctx.respond(
         "Done! I have sent an embed which says " + message, ephemeral=True
     )
     messageEmbed = discord.Embed(
         title=None, description=message, color=discord.Color.nitro_pink()
     )
+    messageEmbed.set_author(name=author, icon_url=avatar)
     await ctx.send(embed=messageEmbed)
 
 
@@ -785,18 +793,22 @@ async def userstatus(ctx, member: discord.Member = None):
     if member == None:
         member = ctx.author
     elif member.status == discord.Status.online:
-        embed = discord.Embed(title=f"{member.name} is online")
+        gembed = discord.Embed(title=f"{member.name} is online")
+        await ctx.respond(embed=gembed)
     elif member.status == discord.Status.offline:
-        embed = discord.Embed(title=f"{member.name} is offline")
+        gembed = discord.Embed(title=f"{member.name} is offline")
+        await ctx.respond(embed=gembed)
     elif member.status == discord.Status.dnd:
-        embed = discord.Embed(title=f"{member.name} wants you to not not disturb them")
+        gembed = discord.Embed(title=f"{member.name} wants you to not not disturb them")
+        await ctx.respond(embed=gembed)
     elif member.status == discord.Status.idle:
-        embed = discord.Embed(
+        gembed = discord.Embed(
             title=f"{member.name} has been afk for 10 minutes or more"
         )
+        await ctx.respond(embed=gembed)
     elif member.status == discord.Status.invisible:
-        embed = discord.Embed(title=f"{member.name} is secretly online! shh")
-    await ctx.respond(embed=embed)
+        gembed = discord.Embed(title=f"{member.name} is secretly online! shh")
+        await ctx.respond(embed=gembed)
 
 
 @bot.slash_command(
