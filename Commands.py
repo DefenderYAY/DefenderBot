@@ -753,6 +753,11 @@ async def partners(ctx):
         value="This is City's Private Server! Join Here: https://discord.gg/sEztMEDFyp",
         inline=False,
     )
+    PartnerEmbed.add_field(
+        name = "Darkcord",
+        value = "<@982213873551699969>'s server! Join for a free ice cream: https://discord.gg/CrdAvMYC5M",
+        inline = False
+    )
     await ctx.respond(embed=PartnerEmbed)
 
 
@@ -883,6 +888,11 @@ async def send_message():
     partnersHourlyEmbed.add_field(
         name="City's Cabaret",
         value="This is City's Private Server! Join Here: https://discord.gg/sEztMEDFyp",
+        inline=False,
+    )
+    partnersHourlyEmbed.add_field(
+        name="Darkcord",
+        value="<@982213873551699969>'s server! Join Here: https://discord.gg/CrdAvMYC5M",
         inline=False,
     )
     partnersHourlyEmbed.set_footer(text="rip techno :((((((((")
