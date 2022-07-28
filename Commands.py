@@ -204,11 +204,11 @@ async def custom(ctx):
         value="This is a custom command for <@852834698300620820>! Try it to see what is does!",
         inline=False,
     )
-    # customEmbed.add_field(
-    #     name="ACE's custom command [-ace, /ace]",
-    #     value="This is a custom command for <@886078239833980958>! Try it to see what is does!",
-    #     inline=False,
-    # )
+    customEmbed.add_field(
+        name="ACE's custom command [-ace, /ace]",
+        value="This is a custom command for <@886078239833980958>! Try it to see what is does!",
+        inline=False,
+    )
     customEmbed.set_footer(text="rip techno :((((((((")
     await ctx.send(embed=customEmbed)
 
@@ -252,11 +252,11 @@ async def friends(ctx):
         value="This is a custom command for <@852834698300620820>! Try it to see what is does! can use it",
         inline=False,
     )
-    # customEmbed.add_field(
-    #     name="ACE's custom command [-ace, /ace]",
-    #     value="This is a custom command for <@886078239833980958>! Try it to see what is does!",
-    #     inline=False,
-    # )
+    customEmbed.add_field(
+        name="ACE's custom command [-ace, /ace]",
+        value="This is a custom command for <@886078239833980958>! Try it to see what is does!",
+        inline=False,
+    )
     customEmbed.add_field(
         name="Hal's Custom Command [/hal]",
         value="This is a custom command for <@922536626108911667>",
@@ -510,12 +510,12 @@ async def ghost(ctx):
     )
 
 
-# @bot.slash_command(description="ACE's Custom Command")
-# async def ace(ctx):
-#     await ctx.respond("Bob, you truly are a god")
-#     await ctx.send(
-#         "https://tenor.com/view/naruto-uzumaki-uzumaki-naruto-naruto-uzumaki-baryon-mode-gif-23142269"
-#     )
+@bot.slash_command(description="ACE's Custom Command")
+async def ace(ctx):
+    await ctx.respond("Bob, you truly are a god")
+    await ctx.send(
+        "https://tenor.com/view/naruto-uzumaki-uzumaki-naruto-naruto-uzumaki-baryon-mode-gif-23142269"
+    )
 
 
 @bot.slash_command(description="Hal's Custom Command!")
