@@ -524,7 +524,10 @@ async def hal(ctx):
         "https://tenor.com/view/cat-the-cat-he-dance-he-dance-gif-24077288"
     )
 
-
+@bot.slash_command(description = "Kori's Custom Command")
+async def kori(ctx):
+    await ctx.respond("My self korilic. I identify as a garlic but I hate garlic eww...\nthe most cool staff member (definitely not a cap)")
+    await ctx.send("https://c.tenor.com/XgAG1LXjpcYAAAAC/apartamento-qualquer-banner-banner.gif")
 # RPS WHEEEEE
 
 
