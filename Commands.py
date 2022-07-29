@@ -531,7 +531,7 @@ async def hal(ctx):
 
 @bot.slash_command(description = "Kori's Custom Command")
 async def kori(ctx):
-    await ctx.respond("https://c.tenor.com/XgsAG1LXjpcYAAAAC/apartamento-qualquer-banner-banner.gif")
+    await ctx.respond("https://c.tenor.com/XgAG1LXjpcYAAAAC/apartamento-qualquer-banner-banner.gif")
     await ctx.send("My self korilic. I identify as a garlic but I hate garlic eww...\nthe most cool staff member (definitely not a cap)")
 # RPS WHEEEEE
 
