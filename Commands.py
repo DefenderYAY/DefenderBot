@@ -534,7 +534,7 @@ async def kori(ctx):
     await ctx.respond("https://c.tenor.com/XgAG1LXjpcYAAAAC/apartamento-qualquer-banner-banner.gif")
     await ctx.send("My self korilic. I identify as a garlic but I hate garlic eww...\nthe most cool staff member (definitely not a cap)")
 
-@bot.slash_command(description = "Ret's Custom Command")
+@bot.slash_command(description = "Ret's Funny Taunt")
 async def ret(ctx):
     await ctx.respond("https://tenor.com/view/scout-laugh-gif-21799013")
     await ctx.send("we have an embed fail! chat f for sad.")
