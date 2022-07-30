@@ -539,6 +539,10 @@ async def ret(ctx):
     await ctx.respond("https://tenor.com/view/scout-laugh-gif-21799013")
     await ctx.send("we have an embed fail! chat f for sad.")
 
+@bot.slash_command(description = "EXACTLY! NUVEY")
+async def legendary(ctx):
+    await ctx.respond("EXACTLY!!! NUVEY")
+
 # RPS WHEEEEE
 
 
