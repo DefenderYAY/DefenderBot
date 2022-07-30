@@ -543,6 +543,19 @@ async def ret(ctx):
 async def legendary(ctx):
     await ctx.respond("EXACTLY!!! NUVEY")
 
+@bot.slash_command(description = "Bigtub's Laundry??")
+async def bigtub(ctx):
+    await ctx.respond("https://media.discordapp.net/attachments/1002526675269079070/1002833325154648104/IMG_8004.png")
+
+@bot.slash_command(description = "IM ANGY")
+async def angy(ctx):
+    await ctx.respond("https://media.discordapp.net/attachments/1002526675269079070/1002832758676144159/unknown.png")
+
+@bot.slash_command(description = "He's Back Boys", name = "aspect_zero")
+async def aspectzero(ctx):
+    await ctx.respond('''"I have returned"
+        -AspectZero
+    ''')
 # RPS WHEEEEE
 
 
@@ -786,7 +799,7 @@ async def say(ctx, message):
     author = ctx.author
     await ctx.respond("Done! You made me say " + message, ephemeral=True)
     await ctx.send(
-        f""""{message}
+        f""""{message}"
         -{author}
         """
     )
