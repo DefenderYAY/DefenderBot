@@ -6,6 +6,7 @@ from ssl import Options
 from types import NoneType
 from webbrowser import BackgroundBrowser, BaseBrowser
 from dotenv import load_dotenv
+from discord.ui import Select
 
 # from click import pass_context
 
@@ -320,14 +321,19 @@ async def serverIp(ctx):
         color=discord.Color.green(),
     )
     ipEmbed.set_thumbnail(url="https://i.imgflip.com/60v6pm.jpg")
+    # ipEmbed.add_field(
+    #     name="1.18.2 Modded SMP",
+    #     value="**IP: StarCraftReal.aternos.me:27226**. This is an smp with a lot of mods, including Origins, Gravestones, Waystones and more! Check <#971649825630203945> for the modlist! **Cracked is enabled on this server!**",
+    #     inline=False,
+    # )
+    # ipEmbed.add_field(
+    #     name="1.19 Vanilla SMP",
+    #     value="**IP: OMGLETSGOOOOO.aternos.me**, This is a vanilla 1.19 server! **Cracked is not enabled on this server**",
+    #     inline=False,
+    #)
     ipEmbed.add_field(
-        name="1.18.2 Modded SMP",
-        value="**IP: StarCraftReal.aternos.me:27226**. This is an smp with a lot of mods, including Origins, Gravestones, Waystones and more! Check <#971649825630203945> for the modlist! **Cracked is enabled on this server!**",
-        inline=False,
-    )
-    ipEmbed.add_field(
-        name="1.19 Vanilla SMP",
-        value="**IP: OMGLETSGOOOOO.aternos.me**, This is a vanilla 1.19 server! **Cracked is not enabled on this server**",
+        name="1.19.1 Modded SMP",
+        value="**IP: DefendersDen.aternos.me**, This is an smp with a lot of mods, including Origins, Gravestones, Inventorio and more! You can download it on [Curse](https://www.curseforge.com/minecraft/modpacks/defenders-smp) or [Modrinth](https://modrinth.com/modpack/defenders-smp)! **Cracked is not enabled on this server!**",
         inline=False,
     )
     ipEmbed.set_footer(text="Ask us if you want any more smps!")
@@ -1045,9 +1051,12 @@ class PollCommand(commands.Cog):
                         f"{winneremoji.emoji} **{winner}** has won the poll!"
                     )
                 self.poll_updater.stop()
-
-
 bot.add_cog(PollCommand(bot))
+
+#Select menu
+# @bot.slash_command(description = "Allows mods to make a select menu!",name = "select_menu", guilds = [1002525744427171850])
+# @default_permissions(administrator = True)
+# async def select(ctx):
 
 # from config import TOKEN
 load_dotenv(".env")
