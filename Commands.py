@@ -787,7 +787,7 @@ async def partners(ctx):
     )
     PartnerEmbed.add_field(
         name = "Darkcord",
-        value = "<@982213873551699969>'s server! Join for a free ice cream: https://discord.gg/CrdAvMYC5M",
+        value = "<@982213873551699969>'s server! Join for a free ice cream: https://discord.gg/ErEM3wETBf",
         inline = False
     )
     await ctx.respond(embed=PartnerEmbed)
