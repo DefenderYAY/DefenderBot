@@ -807,6 +807,7 @@ async def quote(ctx, message):
 @bot.slash_command(
     description="Makes me say a message in a channel! This is definitely NOT a bad idea :D"
 )
+@default_permissions(manage_messages=True)
 async def say(ctx, message):
     await ctx.respond("Done! You made me say " + message, ephemeral=True)
     await ctx.send(message)
