@@ -782,7 +782,7 @@ async def partners(ctx):
     )
     PartnerEmbed.add_field(
         name="City's Cabaret",
-        value="This is City's Private Server! Join Here: https://discord.gg/sEztMEDFyp",
+        value="This is City's Extra Server! Join Here: https://discord.gg/sEztMEDFyp",
         inline=False,
     )
     PartnerEmbed.add_field(
@@ -794,9 +794,9 @@ async def partners(ctx):
 
 
 @bot.slash_command(
-    description="Makes me say a message in a channel! This is definitely NOT a bad idea :D"
+    description="Quotes your message!"
 )
-async def say(ctx, message):
+async def quote(ctx, message):
     author = ctx.author
     await ctx.respond("Done! You made me say " + message, ephemeral=True)
     await ctx.send(
@@ -804,7 +804,12 @@ async def say(ctx, message):
         -{author}
         """
     )
-
+@bot.slash_command(
+    description="Makes me say a message in a channel! This is definitely NOT a bad idea :D"
+)
+async def say(ctx, message):
+    await ctx.respond("Done! You made me say " + message, ephemeral=True)
+    await ctx.send(message)
 
 @bot.slash_command(description="I will send an embed with YOUR message on it!")
 async def embed(ctx, message):
