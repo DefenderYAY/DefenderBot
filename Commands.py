@@ -36,15 +36,6 @@ bot = commands.Bot(
 # Commands
 
 
-@bot.command()
-async def coinflip(ctx):
-    num = random.randint(1, 2)
-    if num == 1:
-        await ctx.send("Heads")
-    else:
-        await ctx.send("Tails")
-
-
 @bot.slash_command(description="Flip a coin")
 async def coinflip(ctx):
     num = random.randint(1, 2)
@@ -54,77 +45,7 @@ async def coinflip(ctx):
         await ctx.respond("Tails")
 
 
-# RPS
-@bot.command()
-async def rps(ctx, hand):
-    hands = ["rock", "paper", "scissors"]
-    botHand = random.choice(hands)
-    await ctx.send(botHand)
-    if hand == botHand:
-        await ctx.send("Its a Draw! Shall we play again?")
-    elif hand == "rock":
-        if botHand == "paper":
-            await ctx.send(
-                "HAH I WON https://tenor.com/view/dancing-cat-dancing-kitten-60fps-boogie-cat-gif-24303276"
-            )
-        else:
-            await ctx.send(
-                "DUDE MY INTERNET WAS LAGGING I SHOULD HAVE WON THA- i mean yay you won haha"
-            )
-
-    elif hand == "paper":
-        if botHand == "rock":
-            await ctx.send(
-                "I FRICKING HATE YOU SO MUC- you won https://tenor.com/view/i-hate-you-anakin-star-wars-gif-10358450"
-            )
-        else:
-            await ctx.send(
-                "WHEEE I WONNN https://tenor.com/view/dance-dog-dancing-pet-boy-123asd-gif-18609627"
-            )
-
-    elif hand == "scissors":
-        if botHand == "paper":
-            await ctx.send(
-                "yay you won '*how much longer do i have to do this again?*'"
-            )
-        else:
-            await ctx.send("SUCK IT LOSER I WON")
-
-
 # Help Embed
-@bot.command(aliases=["about", "what"])
-async def help(ctx):
-    helpEmbed = discord.Embed(
-        title="Commands",
-        description="These are the commands I know so far :D",
-        color=discord.Color.dark_orange(),
-    )
-    helpEmbed.set_thumbnail(url="https://i.imgflip.com/60v6pm.jpg")
-    helpEmbed.add_field(
-        name="Rock Paper Scissors [/rps]",
-        value="This command allows you to play rock paper scissors against the bot! How to use the command: `/rps option` exchange the option with **rock paper or scissors**!",
-        inline=False,
-    )
-    helpEmbed.add_field(
-        name="Coinflip [/coinflip]",
-        value="This command lets you flip a coin",
-        inline=False,
-    )
-    helpEmbed.add_field(
-        name="Custom commands [/friends]",
-        value="This command show the list of custom commands for friends!",
-    )
-    helpEmbed.add_field(
-        name="IP Help [/serverip]",
-        value="This tells you what servers we have and their ips!",
-        inline=False,
-    )
-    helpEmbed.add_field(
-        name="Change Bot Status [/changestatus]",
-        value="Allows certain people to change the bot's status",
-        inline=False,
-    )
-    await ctx.send(embed=helpEmbed)
 
 
 @bot.slash_command(
@@ -166,52 +87,6 @@ async def help(ctx):
 
 
 # Cutsom Embed
-@bot.command(aliases=["friend"])
-async def custom(ctx):
-    customEmbed = discord.Embed(
-        title="Commands",
-        description="These are the commands I know so far :D",
-        color=discord.Color.blurple(),
-    )
-    customEmbed.set_thumbnail(url="https://i.imgflip.com/60v6pm.jpg")
-    customEmbed.add_field(
-        name="City's Custom Command [-city]",
-        value="This is a custom command for <@701981194971119690>! Try it to see what is does!",
-        inline=False,
-    )
-    customEmbed.add_field(
-        name="Marchly's Custom Command [-march]",
-        value="This is a custom command for <@706876255064293416>! Try it to see what is does!",
-        inline=False,
-    )
-    customEmbed.add_field(
-        name="Ghost's Custom Command [-ghost]",
-        value="This is a custom command for <@606870679543087154>! Try it to see what is does!",
-        inline=False,
-    )
-    customEmbed.add_field(
-        name="Shiv's Custom Command [-shiv]",
-        value="This is a custom command for <@518744853832794112>! Try it to see what is does!",
-        inline=False,
-    )
-    customEmbed.add_field(
-        name="Stellar's Custom Command [-stellar]",
-        value="This is a custom command for <@820304171764416582>! Try it to see what is does!!",
-        inline=False,
-    )
-    customEmbed.add_field(name="F O O T [-foot]", value="F O O T", inline=False)
-    customEmbed.add_field(
-        name="El Pepe's custom command [-elpepe]",
-        value="This is a custom command for <@852834698300620820>! Try it to see what is does!",
-        inline=False,
-    )
-    customEmbed.add_field(
-        name="ACE's custom command [-ace, /ace]",
-        value="This is a custom command for <@886078239833980958>! Try it to see what is does!",
-        inline=False,
-    )
-    customEmbed.set_footer(text="rip techno :((((((((")
-    await ctx.send(embed=customEmbed)
 
 
 @bot.slash_command(description="This shows all my friend's commands!")
@@ -272,72 +147,7 @@ async def friends(ctx):
     await ctx.respond(embed=customEmbed)
 
 
-# Edit command
-
-
-@bot.group()
-async def edit(ctx):
-    pass
-
-
-@edit.command()
-async def servername(ctx, *, input):
-    await ctx.guild.edit(name=input)
-    await ctx.send("Success! The Guild name is now " + "**" + input + "**")
-
-
-@edit.command()
-async def createText(ctx, *, input):
-    await ctx.guild.create_text_channel(name=input)
-    await ctx.send(
-        "Success! A new Text channel called " + "**" + input + "** has been created!"
-    )
-
-
-@edit.command()
-async def createVoice(ctx, *, input):
-    await ctx.guild.create_voice_channel(name=input)
-    await ctx.send(
-        "Success! A new Voice channel called " + "**" + input + "** has been created!"
-    )
-
-
-@edit.command()
-async def createRole(ctx, *, input):
-    await ctx.guild.create_role(name=input)
-    await ctx.send(
-        "Success! A new Role called " + "**" + input + "** has been created!"
-    )
-
-
 # Ip embed
-
-
-@bot.command(aliases=["ip", "server", "serverip"])
-async def serverIp(ctx):
-    ipEmbed = discord.Embed(
-        title="Server IPs",
-        description="We currently have 2 servers!",
-        color=discord.Color.green(),
-    )
-    ipEmbed.set_thumbnail(url="https://i.imgflip.com/60v6pm.jpg")
-    # ipEmbed.add_field(
-    #     name="1.18.2 Modded SMP",
-    #     value="**IP: StarCraftReal.aternos.me:27226**. This is an smp with a lot of mods, including Origins, Gravestones, Waystones and more! Check <#971649825630203945> for the modlist! **Cracked is enabled on this server!**",
-    #     inline=False,
-    # )
-    # ipEmbed.add_field(
-    #     name="1.19 Vanilla SMP",
-    #     value="**IP: OMGLETSGOOOOO.aternos.me**, This is a vanilla 1.19 server! **Cracked is not enabled on this server**",
-    #     inline=False,
-    #)
-    ipEmbed.add_field(
-        name="1.19.1 Modded SMP",
-        value="**IP: DefendersDen.aternos.me**, This is an smp with a lot of mods, including Origins, Gravestones, Inventorio and more! You can download it on [Curse](https://www.curseforge.com/minecraft/modpacks/defenders-smp) or [Modrinth](https://modrinth.com/modpack/defenders-smp)! **Cracked is not enabled on this server!**",
-        inline=False,
-    )
-    ipEmbed.set_footer(text="Ask us if you want any more smps!")
-    await ctx.send(embed=ipEmbed)
 
 
 @bot.slash_command(
@@ -359,65 +169,44 @@ async def serverip(ctx):
     await ctx.respond(embed=ipEmbed)
 
 
-# custom commands
+# Create Stuff
+
+create = discord.SlashCommandGroup(
+    "create", "Commands that can help moderators create channels automaticaly."
+)
 
 
-@bot.command()
-async def foot(ctx):
-    await ctx.send("https://i.kym-cdn.com/photos/images/original/001/526/968/043.jpg")
+@create.command(description="Creates a text channel!")
+@default_permissions(manage_channels=True)
+async def channel(ctx, name):
+    await ctx.respond(f"A Text channel with the name {name}!", ephemeral=True)
+    await ctx.guild.create_text_channel(name=name)
 
 
-@bot.command()
-async def shiv(ctx):
-    await ctx.send(
-        "https://tenor.com/view/kidnapping-roblox-roblox-kidnapping-lol-uwu-gif-24871536"
-    )
+@create.command(description="Creates a voice channel for you!")
+@default_permissions(manage_channels=True)
+async def vc(ctx, name):
+    await ctx.respond(f"Created a vc with name: {name}", ephemeral=True)
+    await ctx.guild.create_voice_channel(name=name)
 
 
-@bot.command()
-async def stellar(ctx):
-    await ctx.send("https://tenor.com/view/among-us-gif-24283650")
-    await ctx.send(
-        "https://tenor.com/view/sushichaeng-among-us-among-us-meme-shocked-confused-gif-22454610"
-    )
+@create.command(description="Creates a forum channel for you!")
+@default_permissions(manage_channels=True)
+async def forum(ctx, name):
+    await ctx.respond(f"Created a forum channel with name: {name}", ephemeral=True)
+    await ctx.guild.create_forum_channel(name=name)
 
 
-@bot.command()
-async def elpepe(ctx):
-    await ctx.send("https://tenor.com/view/stare-staring-cat-gif-20275090")
+@create.command(description="Creates a stage channel for you!")
+@default_permissions(manage_channels=True)
+async def stage(ctx, name):
+    await ctx.respond(f"Created a stage channel with the name: {name}!", ephemeral=True)
+    await ctx.guild.create_stage_chanel(name=name)
 
 
-@bot.command()
-async def march(ctx):
-    await ctx.send("> 'no' - Marchly , 2022")
-
-
-@bot.command()
-async def ghost(ctx):
-    await ctx.send(
-        "GHOST IS A LITTLE SUSSY BAKA AMOGUS UWU https://tenor.com/view/oops-haha-epic-fail-escalator-sliding-gif-15280329"
-    )
-
-
-@bot.command()
-async def city(ctx):
-    await ctx.send("city is sus AMOGUS https://c.tenor.com/o9bbZuiIt0AAAAAd/amogus.gif")
-    print("yes")
-
+bot.add_application_command(create)
 
 # Events
-
-
-@bot.event
-async def on_message(msg):
-    username = msg.author.display_name
-    if msg.author == bot.user:
-        return
-    else:
-        if msg.content == "hello":
-            await msg.channel.send("Hello " + username)
-
-
 @bot.event
 async def on_ready():
     f = open("status.txt", "r")
@@ -434,7 +223,7 @@ async def on_ready():
 @bot.event
 async def on_member_join(member):
     await bot.wait_until_ready()
-    guild = member.guild
+    guild = bot.get_guild(938444786145325097)
     guildname = guild.name
     channel = bot.get_channel(971410967021895710)
     rulesChannel = bot.get_channel(971339877004218419)
@@ -446,11 +235,6 @@ async def on_member_join(member):
     await dmchannel.send(
         f"Welcome to {guildname}! Read {rulesChannel.mention}! Have Fun!"
     )
-    # embed = discord.Embed(
-    #     title = f"Read {rulesChannel.mention}!",
-    #     description=None,
-    #     color=discord.Colour.brand_green(),
-    # )
     embed = discord.Embed(
         title="Welcome to Defender's Den!",
         description=f"""**Thanks for joining!**\n\n**Please read the {rulesChannel.mention}**\n\n
@@ -530,33 +314,51 @@ async def hal(ctx):
         "https://tenor.com/view/cat-the-cat-he-dance-he-dance-gif-24077288"
     )
 
-@bot.slash_command(description = "Kori's Custom Command")
-async def kori(ctx):
-    await ctx.respond("https://c.tenor.com/XgAG1LXjpcYAAAAC/apartamento-qualquer-banner-banner.gif")
-    await ctx.send("My self korilic. I identify as a garlic but I hate garlic eww...\nthe most cool staff member (definitely not a cap)")
 
-@bot.slash_command(description = "Ret's Funny Taunt")
+@bot.slash_command(description="Kori's Custom Command")
+async def kori(ctx):
+    await ctx.respond(
+        "https://c.tenor.com/XgAG1LXjpcYAAAAC/apartamento-qualquer-banner-banner.gif"
+    )
+    await ctx.send(
+        "My self korilic. I identify as a garlic but I hate garlic eww...\nthe most cool staff member (definitely not a cap)"
+    )
+
+
+@bot.slash_command(description="Ret's Funny Taunt")
 async def ret(ctx):
     await ctx.respond("https://tenor.com/view/scout-laugh-gif-21799013")
     await ctx.send("we have an embed fail! chat f for sad.")
 
-@bot.slash_command(description = "EXACTLY! NUVEY")
+
+@bot.slash_command(description="EXACTLY! NUVEY")
 async def legendary(ctx):
     await ctx.respond("EXACTLY!!! NUVEY")
 
-@bot.slash_command(description = "Bigtub's Laundry??")
+
+@bot.slash_command(description="Bigtub's Laundry??")
 async def bigtub(ctx):
-    await ctx.respond("https://media.discordapp.net/attachments/1002526675269079070/1002833325154648104/IMG_8004.png")
+    await ctx.respond(
+        "https://media.discordapp.net/attachments/1002526675269079070/1002833325154648104/IMG_8004.png"
+    )
 
-@bot.slash_command(description = "IM ANGY")
+
+@bot.slash_command(description="IM ANGY")
 async def angy(ctx):
-    await ctx.respond("https://media.discordapp.net/attachments/1002526675269079070/1002832758676144159/unknown.png")
+    await ctx.respond(
+        "https://media.discordapp.net/attachments/1002526675269079070/1002832758676144159/unknown.png"
+    )
 
-@bot.slash_command(description = "He's Back Boys", name = "aspect_zero")
+
+@bot.slash_command(description="He's Back Boys", name="aspect_zero")
 async def aspectzero(ctx):
-    await ctx.respond('''"I have returned"
+    await ctx.respond(
+        """"I have returned"
         -AspectZero
-    ''')
+    """
+    )
+
+
 # RPS WHEEEEE
 
 
@@ -706,16 +508,6 @@ async def secret_omg(ctx):
     )
 
 
-# class nitroButton(Button):
-#     def __init__(self, label):
-#         super().__init__(label= label, style = discord.ButtonStyle.blurple, emoji="<:nitro:989116809892491314>", custom_id="fakeNitro")
-#     async def callback(self, button, interaction):
-#         button.label = "Claimed Nitro"
-#         button.disabled = True
-#         await interaction.response.edit_message(view=self)
-#         await interaction.followup.send("https://tenor.com/view/rickroll-roll-rick-never-gonna-give-you-up-never-gonna-gif-22954713", ephemeral = True)
-
-
 class MyView(View):
     def __init__(self, ctx):
         super().__init__(timeout=180)
@@ -786,16 +578,14 @@ async def partners(ctx):
         inline=False,
     )
     PartnerEmbed.add_field(
-        name = "Darkcord",
-        value = "<@982213873551699969>'s server! Join for a free ice cream: https://discord.gg/ErEM3wETBf",
-        inline = False
+        name="Darkcord",
+        value="<@982213873551699969>'s server! Join for a free ice cream: https://discord.gg/ErEM3wETBf",
+        inline=False,
     )
     await ctx.respond(embed=PartnerEmbed)
 
 
-@bot.slash_command(
-    description="Quotes your message!"
-)
+@bot.slash_command(description="Quotes your message!")
 async def quote(ctx, message):
     author = ctx.author
     await ctx.respond("Done! You made me say " + message, ephemeral=True)
@@ -804,6 +594,8 @@ async def quote(ctx, message):
         -{author}
         """
     )
+
+
 @bot.slash_command(
     description="Makes me say a message in a channel! This is definitely NOT a bad idea :D"
 )
@@ -811,6 +603,7 @@ async def quote(ctx, message):
 async def say(ctx, message):
     await ctx.respond("Done! You made me say " + message, ephemeral=True)
     await ctx.send(message)
+
 
 @bot.slash_command(description="I will send an embed with YOUR message on it!")
 async def embed(ctx, message):
@@ -877,7 +670,9 @@ async def smp(ctx):
     await ctx.respond(embed=smpStartEmbed)
 
 
-@bot.slash_command(description="Revive the chat", name="revive")
+@bot.slash_command(
+    description="Revive the chat", name="revive", guild_ids=[938444786145325097]
+)
 @default_permissions(ban_members=True)
 @discord.ext.commands.cooldown(1, 3600, type=discord.ext.commands.BucketType.default)
 async def revivechat(ctx, reason):
@@ -891,53 +686,39 @@ async def revivechat(ctx, reason):
     await ctx.send("<@&981927410876448838>", embed=embed)
 
 
-@bot.slash_command(description="Creates a channel for you!", name="create_channel")
-@default_permissions(manage_channels=True)
-async def createchannel(ctx, name):
-    await ctx.respond("Created a channel with name: " + name, ephemeral=True)
-    await ctx.guild.create_text_channel(name=name)
-
-
-@bot.slash_command(description="Creates a voice channel for you!", name="create_vc")
-@default_permissions(manage_channels=True)
-async def createvc(ctx, name):
-    await ctx.respond("Created a vc with name: " + name, ephemeral=True)
-    await ctx.guild.create_voice_channel(name=name)
-
-
 # loops
 
 
-@tasks.loop(seconds=18000)
-async def send_message():
-    await bot.wait_until_ready()
-    channel = bot.get_channel(979007072060469318)
-    print(channel)
-    partnersHourlyEmbed = discord.Embed(
-        title="Our Partners",
-        description="These are our Partners",
-        color=discord.Colour.green(),
-    )
-    partnersHourlyEmbed.add_field(
-        name="CityBot Home",
-        value="This is City's Bot's Server! Join Here: https://discord.gg/vUNVYa4Nuy",
-        inline=False,
-    )
-    partnersHourlyEmbed.add_field(
-        name="City's Cabaret",
-        value="This is City's Private Server! Join Here: https://discord.gg/sEztMEDFyp",
-        inline=False,
-    )
-    partnersHourlyEmbed.add_field(
-        name="Darkcord",
-        value="<@982213873551699969>'s server! Join Here: https://discord.gg/CrdAvMYC5M",
-        inline=False,
-    )
-    partnersHourlyEmbed.set_footer(text="rip techno :((((((((")
-    await channel.send(embed=partnersHourlyEmbed)
+# @tasks.loop(seconds=18000)
+# async def send_message():
+#     await bot.wait_until_ready()
+#     channel = bot.get_channel(979007072060469318)
+#     print(channel)
+#     partnersHourlyEmbed = discord.Embed(
+#         title="Our Partners",
+#         description="These are our Partners",
+#         color=discord.Colour.green(),
+#     )
+#     partnersHourlyEmbed.add_field(
+#         name="CityBot Home",
+#         value="This is City's Bot's Server! Join Here: https://discord.gg/vUNVYa4Nuy",
+#         inline=False,
+#     )                                                                                                                         Taken Out Because It is too distracting
+#     partnersHourlyEmbed.add_field(
+#         name="City's Cabaret",
+#         value="This is City's Private Server! Join Here: https://discord.gg/sEztMEDFyp",
+#         inline=False,
+#     )
+#     partnersHourlyEmbed.add_field(
+#         name="Darkcord",
+#         value="<@982213873551699969>'s server! Join Here: https://discord.gg/CrdAvMYC5M",
+#         inline=False,
+#     )
+#     partnersHourlyEmbed.set_footer(text="rip techno :((((((((")
+#     await channel.send(embed=partnersHourlyEmbed)
 
 
-send_message.start()
+# send_message.start()
 # Polls
 
 
@@ -1052,13 +833,9 @@ class PollCommand(commands.Cog):
                         f"{winneremoji.emoji} **{winner}** has won the poll!"
                     )
                 self.poll_updater.stop()
+
+
 bot.add_cog(PollCommand(bot))
 
-#Select menu
-# @bot.slash_command(description = "Allows mods to make a select menu!",name = "select_menu", guilds = [1002525744427171850])
-# @default_permissions(administrator = True)
-# async def select(ctx):
-
-# from config import TOKEN
 load_dotenv(".env")
 bot.run(os.getenv("token"))
