@@ -16,6 +16,7 @@ import random
 from discord.ui import Button, View, Select
 from discord.ext import commands, tasks
 from discord.commands import Option, slash_command
+from discord.ext.commands import has_permissions, MissingPermissions
 from discord import (
     CategoryChannel,
     Member,
@@ -358,6 +359,9 @@ async def aspectzero(ctx):
     """
     )
 
+@bot.slash_command(description = "GOO GOO GAA GAA IM A BABY")
+async def googoogaagaa(ctx):
+    await ctx.respond("https://cdn.upload.systems/uploads/KIJYL5au.mp4")
 
 # RPS WHEEEEE
 
@@ -601,8 +605,11 @@ async def quote(ctx, message):
 )
 @default_permissions(manage_messages=True)
 async def say(ctx, message):
-    await ctx.respond("Done! You made me say " + message, ephemeral=True)
-    await ctx.send(message)
+    if "nigger" in message.lower() or "retard" in message.lower() or "faggot" in message.lower() or "nigga" in message.lower() or "fag" in message.lower():
+        await ctx.respond("I will not say this because your message contains slurs! Please be better!", ephemeral = True)
+    else:
+        await ctx.respond("Done! You made me say " + message, ephemeral=True)
+        await ctx.send(message)
 
 
 @bot.slash_command(description="I will send an embed with YOUR message on it!")
