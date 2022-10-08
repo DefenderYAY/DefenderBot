@@ -20,7 +20,6 @@ from discord.ext.commands import has_permissions, MissingPermissions
 from discord import (
     CategoryChannel,
     Member,
-    NamedTuple,
     Permissions,
     default_permissions,
     TextChannel,
@@ -30,7 +29,7 @@ intents = discord.Intents.all()
 intents.message_content = True
 
 bot = commands.Bot(
-    command_prefix=">>>", help_command=None, intents=discord.Intents.all()
+    command_prefix=">>>", help_command=None, intents=intents
 )
 
 
@@ -204,6 +203,10 @@ async def stage(ctx, name):
     await ctx.respond(f"Created a stage channel with the name: {name}!", ephemeral=True)
     await ctx.guild.create_stage_chanel(name=name)
 
+@create.command(description = "Creates a role for you!")
+async def role(ctx,name):
+    await ctx.respond(f"Created a role with the name: {name}!", ephemeral = True)
+    await ctx.guild.create_role(name=name)
 
 bot.add_application_command(create)
 
@@ -221,37 +224,37 @@ async def on_ready():
     print("Bot is ready!")
 
 
-@bot.event
-async def on_member_join(member):
-    await bot.wait_until_ready()
-    guild = bot.get_guild(938444786145325097)
-    guildname = guild.name
-    channel = bot.get_channel(971410967021895710)
-    rulesChannel = bot.get_channel(971339877004218419)
-    rolesChannel = bot.get_channel(978996415504199720)
-    partnersChannel = bot.get_channel(980821704945324062)
-    botChannel = bot.get_channel(987381424418091068)
-    ticketChannel = bot.get_channel(980039998738944080)
-    dmchannel = await member.create_dm()
-    await dmchannel.send(
-        f"Welcome to {guildname}! Read {rulesChannel.mention}! Have Fun!"
-    )
-    embed = discord.Embed(
-        title="Welcome to Defender's Den!",
-        description=f"""**Thanks for joining!**\n\n**Please read the {rulesChannel.mention}**\n\n
-        **Go to {rolesChannel.mention} to customize your roles.**\n\n
-        **If you have any questions, feel free to direct message a staff member or open a ticket in {ticketChannel.mention}.**\n\n 
-        **See how my bot is updated in {botChannel.mention}**\n\n
-        **Check out our partners in {partnersChannel.mention}\n\n**""",
-        color=discord.Color.brand_green(),
-    )
-    embed.add_field(
-        name="PSST Check out the GitHub Page for my bot!:",
-        value="https://github.com/DefenderYAY/DefenderBot!",
-        inline=False,
-    )
-    embed.set_footer(text="Have Fun!")
-    await channel.send(f"Welcome {member.mention}", embed=embed)
+# @bot.event
+# async def on_member_join(member):
+#     await bot.wait_until_ready()
+#     guild = bot.get_guild(938444786145325097)
+#     guildname = guild.name
+#     channel = guild.get_channel(971410967021895710)
+#     rulesChannel = guild.get_channel(971339877004218419)
+#     rolesChannel = guild.get_channel(978996415504199720)
+#     partnersChannel = guild.get_channel(980821704945324062)
+#     botChannel = guild.get_channel(987381424418091068)
+#     ticketChannel = guild.get_channel(980039998738944080)
+#     dmchannel = await member.create_dm()
+#     await dmchannel.send(
+#         f"Welcome to {guildname}! Read {rulesChannel.mention}! Have Fun!"
+#     )
+#     embed = discord.Embed(
+#         title="Welcome to Defender's Den!",
+#         description=f"""**Thanks for joining!**\n\n**Please read the {rulesChannel.mention}**\n\n
+#         **Go to {rolesChannel.mention} to customize your roles.**\n\n
+#         **If you have any questions, feel free to direct message a staff member or open a ticket in {ticketChannel.mention}.**\n\n 
+#         **See how my bot is updated in {botChannel.mention}**\n\n
+#         **Check out our partners in {partnersChannel.mention}\n\n**""",
+#         color=discord.Color.brand_green(),
+#     )
+#     embed.add_field(
+#         name="PSST Check out the GitHub Page for my bot!:",
+#         value="https://github.com/DefenderYAY/DefenderBot!",
+#         inline=False,
+#     )
+#     embed.set_footer(text="Have Fun!")
+#     await channel.send(f"Welcome {member.mention}", embed=embed)
 
 
 # slah commands
@@ -363,6 +366,12 @@ async def aspectzero(ctx):
 async def googoogaagaa(ctx):
     await ctx.respond("https://cdn.upload.systems/uploads/KIJYL5au.mp4")
 
+@bot.slash_command(description = "A Turtorial: 'How to play League'(not fake)")
+async def leagueoflegends(ctx):
+    await ctx.respond("You have sinned, and you will hence recieve a punishement worthy of playing LoL. **Public Shaming**", ephemeral = True)
+    await ctx.send(f"Its seems {ctx.author} has used /leagueoflegends! Well...")
+    await ctx.send("https://www.wikihow.com/Take-a-Relaxing-Shower")
+
 # RPS WHEEEEE
 
 
@@ -409,18 +418,6 @@ async def rps(
             )
         else:
             await ctx.send("SUCK IT LOSER I WON")
-
-
-@bot.slash_command(description="Defender's *SECRET* command")
-async def defender(ctx):
-    userid = ctx.author.id
-    if userid == 832156730502414346:
-        await ctx.respond(
-            "https://tenor.com/view/get-real-real-get-fornite-impossible-gif-24471055"
-        )
-        await ctx.send("amongus")
-    else:
-        await ctx.respond("This isn't your command. smh")
 
 
 @bot.slash_command(description="Allows admins to change the bot's status")
@@ -504,14 +501,6 @@ async def changestatus(ctx, status):
     f.close()
 
 
-@bot.slash_command(description="is this a SCERET?")
-async def secret_omg(ctx):
-    await ctx.respond(
-        "omg you discovered secret, dm <@832156730502414346> to get a custom role!",
-        ephemeral=True,
-    )
-
-
 class MyView(View):
     def __init__(self, ctx):
         super().__init__(timeout=180)
@@ -579,11 +568,6 @@ async def partners(ctx):
     PartnerEmbed.add_field(
         name="City's Cabaret",
         value="This is City's Extra Server! Join Here: https://discord.gg/sEztMEDFyp",
-        inline=False,
-    )
-    PartnerEmbed.add_field(
-        name="Darkcord",
-        value="<@982213873551699969>'s server! Join for a free ice cream: https://discord.gg/ErEM3wETBf",
         inline=False,
     )
     await ctx.respond(embed=PartnerEmbed)
